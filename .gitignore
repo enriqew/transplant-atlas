@@ -29,10 +29,11 @@ data/raw/**
 !data/raw/**/
 !data/raw/**/meta.json
 
-# DuckDB working files
+# DuckDB working files + any runtime-generated material under data/duckdb/
 data/duckdb/*.duckdb
 data/duckdb/*.duckdb.wal
 data/duckdb/*.tmp
+data/duckdb/*.pem
 
 # dbt artefacts
 dbt_project/target/

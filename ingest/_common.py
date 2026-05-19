@@ -75,15 +75,34 @@ def snapshot_dir(source: str, snapshot_date: str) -> Path:
 
 
 def ensure_snapshot_dir(source: str, snapshot_date: str, force: bool) -> Path:
-    """Create the snapshot dir. Refuse if it already has files unless --force."""
+    """Create the snapshot dir.
+
+    Behaviour by existing state:
+      - dir missing or empty → create and proceed
+      - dir has meta.json    → snapshot is considered complete; raise SnapshotComplete
+                               so the caller can short-circuit (Make resumability)
+      - dir has files but no meta.json → partial/aborted run; refuse unless --force
+    """
 
     target = snapshot_dir(source, snapshot_date)
-    if target.exists() and any(target.iterdir()) and not force:
-        raise SystemExit(
-            f"snapshot already exists at {target}; rerun with --force to re-download"
-        )
+    if target.exists() and any(target.iterdir()):
+        meta_present = (target / "meta.json").exists()
+        if meta_present and not force:
+            raise SnapshotComplete(target)
+        if not meta_present and not force:
+            raise SystemExit(
+                f"partial snapshot at {target} (no meta.json); rerun with --force to overwrite"
+            )
     target.mkdir(parents=True, exist_ok=True)
     return target
+
+
+class SnapshotComplete(Exception):
+    """Raised by ensure_snapshot_dir when the snapshot is already finalized."""
+
+    def __init__(self, path: Path) -> None:
+        super().__init__(f"snapshot already complete at {path}")
+        self.path = path
 
 
 def sha256_of(path: Path) -> str:
@@ -107,12 +126,26 @@ def http_get(url: str, *, timeout: int = HTTP_TIMEOUT_SECONDS) -> requests.Respo
     return response
 
 
-def stream_to_file(url: str, dest: Path, *, timeout: int = HTTP_TIMEOUT_SECONDS) -> int:
-    """Stream a GET response into `dest`. Returns bytes written."""
+def stream_to_file(
+    url: str,
+    dest: Path,
+    *,
+    timeout: int = HTTP_TIMEOUT_SECONDS,
+    verify: str | bool | None = None,
+) -> int:
+    """Stream a GET response into `dest`. Returns bytes written.
+
+    `verify` is forwarded to requests. Pass a path to a custom CA bundle for sources
+    whose servers don't include their intermediate certs (e.g. GODT/FNMT-RCM).
+    """
 
     bytes_written = 0
     with requests.get(
-        url, headers={"User-Agent": USER_AGENT}, timeout=timeout, stream=True
+        url,
+        headers={"User-Agent": USER_AGENT},
+        timeout=timeout,
+        stream=True,
+        verify=True if verify is None else verify,
     ) as response:
         response.raise_for_status()
         with dest.open("wb") as fh:
@@ -121,6 +154,28 @@ def stream_to_file(url: str, dest: Path, *, timeout: int = HTTP_TIMEOUT_SECONDS)
                     fh.write(chunk)
                     bytes_written += len(chunk)
     return bytes_written
+
+
+def extended_ca_bundle(extra_pem_paths: list[Path]) -> Path:
+    """Build a one-off CA bundle = certifi defaults + the given intermediate PEMs.
+
+    The returned path lives under data/duckdb/ (a scratch dir we already gitignore)
+    so it never escapes the repo. Pass the path as `verify=` to requests.
+    """
+
+    import certifi
+
+    base = Path(certifi.where()).read_bytes()
+    combined = bytearray(base)
+    for extra in extra_pem_paths:
+        combined.extend(b"\n")
+        combined.extend(extra.read_bytes())
+
+    out_dir = REPO_ROOT / "data" / "duckdb"
+    out_dir.mkdir(parents=True, exist_ok=True)
+    out_path = out_dir / "_ca_bundle_with_extras.pem"
+    out_path.write_bytes(bytes(combined))
+    return out_path
 
 
 @dataclass
@@ -192,11 +247,13 @@ def fail(message: str, *, log: logging.Logger | None = None, code: int = 1) -> N
 
 __all__ = [
     "FileRecord",
+    "SnapshotComplete",
     "SnapshotMeta",
     "build_argparser",
     "configure_logging",
     "count_csv_rows",
     "ensure_snapshot_dir",
+    "extended_ca_bundle",
     "fail",
     "http_get",
     "pipeline_version",

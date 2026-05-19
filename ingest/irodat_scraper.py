@@ -3,13 +3,12 @@
 Source: https://www.irodat.org/?p=database
 Public country-by-country registry of donation and transplantation indicators since 1996.
 
-The page renders an HTML table per country/year. The exact request shape (GET with query
-params vs POST with form data) has historically changed; we keep this script narrow:
+The index page renders a `<select>` dropdown whose `<option>` values are 2-letter
+IRODaT-specific country codes. Selecting a country navigates the browser to
+`/?p=database&c=<code>#data`. We replicate that path-only: parse the select once,
+then fetch each country detail page and persist the raw HTML.
 
-  1. Fetch the main database page.
-  2. Discover the per-country detail links from the rendered HTML.
-  3. Persist the raw HTML for each detail page into the snapshot dir.
-  4. Silver-layer SQL is responsible for parsing.
+Silver-layer parsing happens in a separate pre-step (dbt_project/analyses/irodat_html_to_csv.py).
 
 License: © IRODaT. Attribution required for any re-use.
 """
@@ -18,11 +17,11 @@ from __future__ import annotations
 
 import re
 import sys
-from html.parser import HTMLParser
 from urllib.parse import urljoin
 
 from ingest._common import (
     FileRecord,
+    SnapshotComplete,
     SnapshotMeta,
     build_argparser,
     configure_logging,
@@ -40,22 +39,14 @@ SOURCE = "irodat"
 BASE_URL = "https://www.irodat.org/"
 INDEX_URL = "https://www.irodat.org/?p=database"
 
-
-class _LinkCollector(HTMLParser):
-    """Collect href targets that look like per-country IRODaT detail pages."""
-
-    def __init__(self) -> None:
-        super().__init__(convert_charrefs=True)
-        self.links: list[str] = []
-
-    def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
-        if tag.lower() != "a":
-            return
-        for key, value in attrs:
-            if key.lower() == "href" and value:
-                # IRODaT detail pages tend to look like ?p=database&c=<country code>
-                if "p=database" in value and "c=" in value:
-                    self.links.append(value)
+# Captures every country code from the country-picker select on the index page.
+# Options use the 2-letter IRODaT code as `value` (some prefixed with `_` for
+# disambiguation), and the country name as the option text. Skip the placeholder
+# whose value is "0".
+COUNTRY_OPTION_RE = re.compile(
+    r'<option\s+value="([^"]+)"[^>]*>\s*([^<]+?)\s*</option>',
+    re.DOTALL | re.IGNORECASE,
+)
 
 
 def _safe_slug(value: str) -> str:
@@ -72,24 +63,32 @@ def main(argv: list[str] | None = None) -> int:
     except Exception as exc:  # noqa: BLE001
         fail(f"IRODaT index fetch failed: {exc!r}", log=log)
 
-    parser = _LinkCollector()
-    parser.feed(index_html)
-    detail_links = sorted(set(parser.links))
-    log.info("discovered %d country detail links", len(detail_links))
+    countries: list[tuple[str, str]] = []
+    for code, name in COUNTRY_OPTION_RE.findall(index_html):
+        code = code.strip()
+        name = re.sub(r"\s+", " ", name).strip()
+        if code == "0" or not code or not name:
+            continue
+        countries.append((code, name))
 
-    if not detail_links:
+    log.info("discovered %d country picker entries", len(countries))
+    if not countries:
         fail(
-            "no country detail links discovered on IRODaT index; site layout may have changed",
+            "no countries discovered in IRODaT index <select>; layout may have changed",
             log=log,
         )
 
     if args.dry_run:
         log.info("--dry-run: not writing snapshot")
-        for link in detail_links[:5]:
-            log.info("  example: %s", link)
+        for code, name in countries[:5]:
+            log.info("  example: %s = %s", code, name)
         return 0
 
-    target = ensure_snapshot_dir(SOURCE, args.snapshot_date, args.force)
+    try:
+        target = ensure_snapshot_dir(SOURCE, args.snapshot_date, args.force)
+    except SnapshotComplete as exc:
+        log.info("snapshot already complete: %s — skipping", exc.path)
+        return 0
 
     index_path = target / "_index.html"
     index_path.write_text(index_html, encoding="utf-8")
@@ -110,12 +109,10 @@ def main(argv: list[str] | None = None) -> int:
         ],
     )
 
-    for href in detail_links:
-        url = urljoin(BASE_URL, href)
-        # Use the query string ("c=XX&...") as the file name slug
-        suffix = href.split("?", 1)[-1]
-        dest = target / f"country_{_safe_slug(suffix)}.html"
-        log.info("downloading %s", url)
+    for code, name in countries:
+        url = urljoin(BASE_URL, f"?p=database&c={code}#data")
+        dest = target / f"country_{_safe_slug(code)}_{_safe_slug(name).lower()}.html"
+        log.info("downloading %s (%s) → %s", code, name, dest.name)
         try:
             n = stream_to_file(url, dest)
         except Exception as exc:  # noqa: BLE001
@@ -131,7 +128,7 @@ def main(argv: list[str] | None = None) -> int:
         )
 
     write_meta(target, meta)
-    log.info("snapshot complete: %s", target)
+    log.info("snapshot complete: %s (%d country pages)", target, len(countries))
     return 0
 
 

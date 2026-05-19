@@ -21,10 +21,12 @@ import pdfplumber
 
 from ingest._common import (
     FileRecord,
+    SnapshotComplete,
     SnapshotMeta,
     build_argparser,
     configure_logging,
     ensure_snapshot_dir,
+    extended_ca_bundle,
     fail,
     pipeline_version,
     sha256_of,
@@ -32,6 +34,13 @@ from ingest._common import (
     utcnow_iso,
     write_meta,
 )
+
+# GODT (transplant-observatory.org) is served by ONT/Spain on a TLS cert issued by
+# FNMT-RCM. The server doesn't include its intermediate "AC Componentes Informáticos"
+# in the handshake, so we bundle that intermediate ourselves (downloaded once by the
+# repo owner from the CA's published location; provenance + SHA256 are documented in
+# ingest/certs/README.md) and merge it with certifi's defaults at request time.
+FNMT_INTERMEDIATE_PEM = Path(__file__).resolve().parent / "certs" / "fnmt_accomp.pem"
 
 SOURCE = "godt_world"
 DEFAULT_PDF_URL = (
@@ -54,8 +63,17 @@ def _check_pdfplumber_version(log) -> None:
         )
 
 
+MIN_TABLE_ROWS = 2     # one header + at least one data row
+MIN_TABLE_COLS = 3     # < 3 columns is almost always a false-positive table detection
+MIN_TABLE_BYTES = 100  # smaller than this and DuckDB's CSV sniffer chokes
+
+
 def _extract_tables(pdf_path: Path, out_dir: Path, log) -> list[Path]:
-    """Extract every page-level table to a separate CSV; returns the CSV paths in order."""
+    """Extract every page-level table to a separate CSV; returns the CSV paths in order.
+
+    Filters out pdfplumber false positives (single-cell artifacts, mostly-empty rows)
+    because DuckDB's CSV sniffer fails on near-empty files and pollutes the silver layer.
+    """
 
     written: list[Path] = []
     with pdfplumber.open(pdf_path) as pdf:
@@ -64,14 +82,26 @@ def _extract_tables(pdf_path: Path, out_dir: Path, log) -> list[Path]:
             if not tables:
                 continue
             for table_index, rows in enumerate(tables, start=1):
-                if not rows or all(not any(cell or "" for cell in row) for row in rows):
+                non_empty_rows = [
+                    row for row in rows if row and any((cell or "").strip() for cell in row)
+                ]
+                if len(non_empty_rows) < MIN_TABLE_ROWS:
                     continue
+                widest = max(len(row) for row in non_empty_rows)
+                if widest < MIN_TABLE_COLS:
+                    continue
+
                 csv_path = out_dir / f"page_{page_index:03d}_table_{table_index}.csv"
                 with csv_path.open("w", newline="", encoding="utf-8") as fh:
                     writer = csv.writer(fh)
-                    for row in rows:
+                    for row in non_empty_rows:
                         writer.writerow([(cell or "").strip() for cell in row])
-                log.info("extracted table → %s (%d rows)", csv_path.name, len(rows))
+
+                if csv_path.stat().st_size < MIN_TABLE_BYTES:
+                    csv_path.unlink()
+                    continue
+
+                log.info("extracted table → %s (%d rows, %d cols)", csv_path.name, len(non_empty_rows), widest)
                 written.append(csv_path)
     return written
 
@@ -88,12 +118,25 @@ def main(argv: list[str] | None = None) -> int:
         log.info("--dry-run: not downloading PDF")
         return 0
 
-    target = ensure_snapshot_dir(SOURCE, args.snapshot_date, args.force)
+    try:
+        target = ensure_snapshot_dir(SOURCE, args.snapshot_date, args.force)
+    except SnapshotComplete as exc:
+        log.info("snapshot already complete: %s — skipping", exc.path)
+        return 0
     pdf_path = target / "global_report.pdf"
+
+    if not FNMT_INTERMEDIATE_PEM.exists():
+        fail(
+            f"missing FNMT intermediate cert at {FNMT_INTERMEDIATE_PEM}; "
+            "see ingest/certs/README.md for the provenance of this file",
+            log=log,
+        )
+    ca_bundle = extended_ca_bundle([FNMT_INTERMEDIATE_PEM])
+    log.info("using CA bundle with FNMT intermediate: %s", ca_bundle)
 
     log.info("downloading PDF → %s", pdf_path)
     try:
-        pdf_bytes = stream_to_file(pdf_url, pdf_path)
+        pdf_bytes = stream_to_file(pdf_url, pdf_path, verify=str(ca_bundle))
     except Exception as exc:  # noqa: BLE001
         fail(f"PDF download failed: {exc!r}", log=log)
 

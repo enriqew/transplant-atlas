@@ -1,73 +1,41 @@
 """Bronze ingest: CENATRA waiting list + establishments.
 
-The waiting list dataset is published under the CENATRA organization rather than a single
-package slug. We resolve it via CKAN's organization_show endpoint and pull every CSV in
-the CENATRA org whose title looks like a waiting-list dataset.
+Two CENATRA datasets, both on datos.gob.mx CKAN:
+  - pacientes_espera_organo_tejido      (waiting list, quarterly)
+  - establecimientos_activos_programas  (authorized establishments)
 
-Source: https://datos.gob.mx/busca/organization/80e28b47-8527-4926-87b9-7ccd26b5a2a0
+We avoid the `organization_show` endpoint (which returns 404 on www.datos.gob.mx)
+and pull each dataset directly via `package_show`. Override the slug list at
+runtime via TRANSPLANT_ATLAS_CENATRA_WAITLIST_SLUGS (comma-separated).
+
 License: Libre Uso MX.
 """
 
 from __future__ import annotations
 
+import os
 import sys
 
-from ingest._ckan import (
-    CkanResource,
-    filter_csv,
-    ingest_ckan_csv_dataset,
-    list_dataset_resources,
-)
-from ingest._common import build_argparser, configure_logging, fail, http_get
+from ingest._ckan import ingest_ckan_csv_dataset
+from ingest._common import build_argparser, configure_logging
 
 SOURCE = "cenatra_waitlist"
-ORG_ID = "80e28b47-8527-4926-87b9-7ccd26b5a2a0"
-CKAN_BASE = "https://www.datos.gob.mx/api/3/action"
-
-
-def _waitlist_datasets() -> list[str]:
-    """Return dataset slugs in the CENATRA org whose title hints at waiting list."""
-
-    response = http_get(f"{CKAN_BASE}/organization_show?id={ORG_ID}&include_datasets=true")
-    payload = response.json()
-    if not payload.get("success"):
-        raise RuntimeError(f"CKAN organization_show failed: {payload}")
-    keepers: list[str] = []
-    for ds in payload["result"].get("packages", []):
-        title = (ds.get("title") or "").lower()
-        slug = ds.get("name")
-        if not slug:
-            continue
-        if "espera" in title or "establec" in title:
-            keepers.append(slug)
-    return keepers
+DEFAULT_SLUGS = [
+    "pacientes_espera_organo_tejido",
+    "establecimientos_activos_programas",
+]
 
 
 def main(argv: list[str] | None = None) -> int:
     args = build_argparser(SOURCE).parse_args(argv)
     log = configure_logging(SOURCE)
 
-    try:
-        slugs = _waitlist_datasets()
-    except Exception as exc:  # noqa: BLE001
-        fail(f"CKAN organization_show failed: {exc!r}", log=log)
-
-    if not slugs:
-        fail(
-            "no waiting-list datasets found in CENATRA org; check upstream catalog",
-            log=log,
-        )
-
+    raw = os.environ.get("TRANSPLANT_ATLAS_CENATRA_WAITLIST_SLUGS")
+    slugs = [s.strip() for s in raw.split(",") if s.strip()] if raw else DEFAULT_SLUGS
     log.info("waitlist-related dataset slugs: %s", slugs)
 
-    if args.dry_run:
-        # Probe resources without writing
-        for slug in slugs:
-            resources = filter_csv(list_dataset_resources(slug))
-            log.info("  %s: %d CSV resources", slug, len(resources))
-        return 0
-
-    # Run the generic flow for each waitlist-related dataset; reuse the same snapshot dir.
+    # Each slug becomes its own snapshot directory: data/raw/cenatra_waitlist__<slug>/<date>/
+    # so the silver model can union them with a single glob.
     exit_codes = [
         ingest_ckan_csv_dataset(source=f"{SOURCE}__{slug}", dataset_slug=slug, args=args)
         for slug in slugs

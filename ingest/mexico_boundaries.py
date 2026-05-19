@@ -18,6 +18,7 @@ import sys
 
 from ingest._common import (
     FileRecord,
+    SnapshotComplete,
     SnapshotMeta,
     build_argparser,
     configure_logging,
@@ -47,7 +48,11 @@ def main(argv: list[str] | None = None) -> int:
         log.info("--dry-run: not downloading")
         return 0
 
-    target = ensure_snapshot_dir(SOURCE, args.snapshot_date, args.force)
+    try:
+        target = ensure_snapshot_dir(SOURCE, args.snapshot_date, args.force)
+    except SnapshotComplete as exc:
+        log.info("snapshot already complete: %s — skipping", exc.path)
+        return 0
     dest = target / "admin_1_states_provinces.zip"
     log.info("downloading → %s", dest.name)
 

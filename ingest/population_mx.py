@@ -19,7 +19,7 @@ from ingest._ckan import filter_csv, ingest_ckan_csv_dataset, list_dataset_resou
 from ingest._common import build_argparser, configure_logging, fail
 
 SOURCE = "population_mx"
-DEFAULT_SLUG = "proyecciones-de-la-poblacion-de-mexico"
+DEFAULT_SLUG = "proyecciones-de-poblacion"
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -45,7 +45,16 @@ def main(argv: list[str] | None = None) -> int:
             log=log,
         )
 
-    return ingest_ckan_csv_dataset(source=SOURCE, dataset_slug=slug, args=args)
+    # CONAPO ships 11 CSVs under this slug (municipal, indicators, deaths, migration, ...).
+    # We only want state-level mid-year population for the pmp denominator, so filter to
+    # the "Población a mitad de año" file while excluding municipal breakdown.
+    return ingest_ckan_csv_dataset(
+        source=SOURCE,
+        dataset_slug=slug,
+        args=args,
+        name_substrings=["mitad de año"],
+        name_excludes=["municipio"],
+    )
 
 
 if __name__ == "__main__":

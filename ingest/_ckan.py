@@ -12,6 +12,7 @@ from dataclasses import dataclass
 
 from ingest._common import (
     FileRecord,
+    SnapshotComplete,
     SnapshotMeta,
     configure_logging,
     count_csv_rows,
@@ -72,10 +73,17 @@ def ingest_ckan_csv_dataset(
     source: str,
     dataset_slug: str,
     args: argparse.Namespace,
+    name_substrings: list[str] | None = None,
+    name_excludes: list[str] | None = None,
 ) -> int:
     """Generic flow for any CENATRA / datos.gob.mx CSV dataset.
 
     Returns process exit code. Any unrecoverable error calls fail() (raises SystemExit).
+
+    If `name_substrings` is provided, only resources whose `name` (case-insensitive)
+    contains at least one of those substrings are kept. Use this for datasets that
+    bundle several unrelated files (e.g. CONAPO population includes municipal,
+    state-level, and indicator files; we only need state-level).
     """
 
     log = configure_logging(source)
@@ -84,6 +92,18 @@ def ingest_ckan_csv_dataset(
         resources = filter_csv(list_dataset_resources(dataset_slug))
     except Exception as exc:  # noqa: BLE001
         fail(f"CKAN discovery failed: {exc!r}", log=log)
+
+    if name_substrings:
+        needles = [n.lower() for n in name_substrings]
+        resources = [r for r in resources if any(n in r.name.lower() for n in needles)]
+        log.info("filtered to %d resource(s) matching: %s", len(resources), name_substrings)
+
+    if name_excludes:
+        excludes = [n.lower() for n in name_excludes]
+        resources = [r for r in resources if not any(n in r.name.lower() for n in excludes)]
+        log.info(
+            "after excluding %s: %d resource(s) remain", name_excludes, len(resources)
+        )
 
     if not resources:
         fail(f"no CSV resources found in dataset {dataset_slug}", log=log)
@@ -96,7 +116,11 @@ def ingest_ckan_csv_dataset(
         log.info("--dry-run: not writing snapshot")
         return 0
 
-    target = ensure_snapshot_dir(source, args.snapshot_date, args.force)
+    try:
+        target = ensure_snapshot_dir(source, args.snapshot_date, args.force)
+    except SnapshotComplete as exc:
+        log.info("snapshot already complete: %s — skipping", exc.path)
+        return 0
     meta = SnapshotMeta(
         source=source,
         snapshot_date=args.snapshot_date,
