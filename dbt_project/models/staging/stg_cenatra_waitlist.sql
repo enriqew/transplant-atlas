@@ -17,12 +17,13 @@
 -- from the filename (e.g. "4toTrimestre2025") to set (reporting_year, reporting_quarter).
 -- Patient count per (state, organ, year, quarter) becomes persons_waiting in gold.
 
+-- CENATRA uses 97/99 as "No Disponible" sentinels for entity codes.
 WITH raw AS (
     SELECT
-        TRY_CAST(codigo_entidad_federativa_residencia_paciente AS INTEGER)      AS cve_geo_residence,
-        TRY_CAST(codigo_entidad_federativa_establecimiento AS INTEGER)          AS cve_geo_establishment,
-        TRIM(organo)                                                            AS organ_raw,
-        filename                                                                AS source_filename
+        NULLIF(NULLIF(TRY_CAST(codigo_entidad_federativa_residencia_paciente AS INTEGER), 97), 99) AS cve_geo_residence,
+        NULLIF(NULLIF(TRY_CAST(codigo_entidad_federativa_establecimiento AS INTEGER), 97), 99)     AS cve_geo_establishment,
+        UPPER(TRIM(organo))                                                                         AS organ_raw,
+        filename                                                                                    AS source_filename
     FROM read_csv_auto(
         '{{ env_var("TRANSPLANT_ATLAS_RAW_ROOT", "../data/raw") }}/cenatra_waitlist__pacientes_espera_organo_tejido/*/*.csv',
         filename=true,

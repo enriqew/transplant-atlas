@@ -19,17 +19,19 @@
 -- One raw row = one transplant procedure. We attribute the procedure to the patient's
 -- residence state when available, falling back to the transplant-establishment state.
 
+-- CENATRA uses 97/99 as "No Disponible" sentinels for entity codes; treat them as
+-- unknown (NULL) so the COALESCE falls back from residence to establishment.
 WITH raw AS (
     SELECT
-        TRY_CAST(codigo_entidad_federativa_residencia AS INTEGER)                AS cve_geo_residence,
-        TRY_CAST(codigo_entidad_federativa_trasplante AS INTEGER)                AS cve_geo_establishment,
-        TRIM(organo)                                                             AS organ_raw,
-        TRY_CAST(fecha_trasplante AS DATE)                                       AS transplant_date,
-        TRIM(establecimiento)                                                    AS establishment,
-        TRIM(tipo_trasplante)                                                    AS donor_type_raw,
-        UPPER(TRIM(sexo))                                                        AS sex_raw,
-        TRY_CAST(edad_al_trasplante_anios AS INTEGER)                            AS age_years,
-        filename                                                                 AS source_filename
+        NULLIF(NULLIF(TRY_CAST(codigo_entidad_federativa_residencia AS INTEGER), 97), 99) AS cve_geo_residence,
+        NULLIF(NULLIF(TRY_CAST(codigo_entidad_federativa_trasplante AS INTEGER), 97), 99) AS cve_geo_establishment,
+        UPPER(TRIM(organo))                                                                AS organ_raw,
+        TRY_CAST(fecha_trasplante AS DATE)                                                 AS transplant_date,
+        TRIM(establecimiento)                                                              AS establishment,
+        TRIM(tipo_trasplante)                                                              AS donor_type_raw,
+        UPPER(TRIM(sexo))                                                                  AS sex_raw,
+        TRY_CAST(edad_al_trasplante_anios AS INTEGER)                                      AS age_years,
+        filename                                                                           AS source_filename
     FROM read_csv_auto(
         {{ latest_raw_csv_glob('cenatra_transplants') }},
         filename=true,

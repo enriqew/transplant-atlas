@@ -18,9 +18,10 @@
 -- We unpivot the organ columns into (donor, organ_raw, organ_count) rows and
 -- collapse to the gold organ enum at the same time.
 
+-- CENATRA uses 97/99 as "No Disponible" sentinels for entity codes.
 WITH raw AS (
     SELECT
-        TRY_CAST(codigo_entidad_federativa AS INTEGER)                            AS cve_geo,
+        NULLIF(NULLIF(TRY_CAST(codigo_entidad_federativa AS INTEGER), 97), 99)    AS cve_geo,
         TRIM(tipo_donante)                                                        AS donor_type_raw,
         TRIM(establecimiento)                                                     AS establishment,
         TRY_CAST(fecha_procuracion AS DATE)                                       AS donation_date,

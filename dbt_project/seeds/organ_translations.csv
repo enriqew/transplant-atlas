@@ -1,50 +1,32 @@
 organ_spanish,organ_english
-Riñón,kidney
-Rinon,kidney
 RIÑÓN,kidney
 RIÑON,kidney
 RINON,kidney
-Riñón-Riñón,kidney
-Hígado,liver
-Higado,liver
+RIÑÓN-RIÑÓN,kidney
 HÍGADO,liver
 HIGADO,liver
-Hígado-Riñón,liver
-Corazón,heart
-Corazon,heart
+HÍGADO-RIÑÓN,liver
 CORAZÓN,heart
 CORAZON,heart
-Pulmón,lung
-Pulmon,lung
+CORAZÓN-RIÑÓN,heart
 PULMÓN,lung
 PULMON,lung
-Pulmón-Pulmón,lung
-Páncreas,pancreas
-Pancreas,pancreas
 PÁNCREAS,pancreas
 PANCREAS,pancreas
-Córnea,cornea
-Cornea,cornea
 CÓRNEA,cornea
 CORNEA,cornea
-Médula Ósea,bone_marrow
-Medula Osea,bone_marrow
 MÉDULA ÓSEA,bone_marrow
 MEDULA OSEA,bone_marrow
 C.P.H.,bone_marrow
 CPH,bone_marrow
-Riñón-Páncreas,kidney_pancreas
-Rinon-Pancreas,kidney_pancreas
 RIÑÓN-PÁNCREAS,kidney_pancreas
 RINON-PANCREAS,kidney_pancreas
-Hueso,other_tissue
 HUESO,other_tissue
-Piel,other_tissue
+HUESOS,other_tissue
 PIEL,other_tissue
-Válvula Cardiaca,other_tissue
-Valvula Cardiaca,other_tissue
-Tejido Musculoesquelético,other_tissue
-Intestino,other_tissue
+VÁLVULA CARDIACA,other_tissue
+VÁLVULAS,other_tissue
+TEJIDO MUSCULOESQUELÉTICO,other_tissue
 INTESTINO,other_tissue
-Extremidades,other_tissue
-Paratiroides,other_tissue
+EXTREMIDADES,other_tissue
+PARATIROIDES,other_tissue
