@@ -23,7 +23,6 @@ import json
 import logging
 import os
 import sys
-import zipfile
 from collections import defaultdict
 from pathlib import Path
 
@@ -192,7 +191,7 @@ def _build_world_transplants(con: duckdb.DuckDBPyConnection) -> list[dict]:
 
 
 def _build_mexico_topojson(log: logging.Logger) -> tuple[dict, Path]:
-    """Extract Mexican state polygons from the cached Natural Earth zip, simplify, return TopoJSON."""
+    """Read the cached Natural Earth admin-1 GeoJSON, filter to Mexico, return simplified TopoJSON."""
 
     if not RAW_BOUNDARIES_DIR.exists():
         raise SystemExit(
@@ -202,34 +201,13 @@ def _build_mexico_topojson(log: logging.Logger) -> tuple[dict, Path]:
     if not snapshots:
         raise SystemExit(f"no boundary snapshot under {RAW_BOUNDARIES_DIR}")
     snapshot = snapshots[-1]
-    zip_path = snapshot / "admin_1_states_provinces.zip"
-    if not zip_path.exists():
-        raise SystemExit(f"missing {zip_path}")
+    geojson_path = snapshot / "admin_1_states_provinces.geojson"
+    if not geojson_path.exists():
+        raise SystemExit(f"missing {geojson_path}")
 
-    log.info("extracting Mexican boundary polygons from %s", zip_path)
-    with zipfile.ZipFile(zip_path) as archive:
-        # Natural Earth zips a shapefile bundle (.shp + .dbf + .shx + .prj + ...).
-        # We need a backend that can read shapefiles; geopandas isn't a dep here, so
-        # we use the topojson library's GeoDataFrame-free path with fiona-via-geopandas
-        # only if available. For determinism + zero-extra-deps, ship Natural Earth's
-        # accompanying geojson (`*.geojson`) when present; else require the user to
-        # provide an already-converted GeoJSON via TRANSPLANT_ATLAS_BOUNDARY_GEOJSON.
-        names = archive.namelist()
-        geojson_member = next((n for n in names if n.endswith(".geojson")), None)
-        if geojson_member is None:
-            override = os.environ.get("TRANSPLANT_ATLAS_BOUNDARY_GEOJSON")
-            if not override:
-                raise SystemExit(
-                    "Natural Earth zip has no .geojson; set TRANSPLANT_ATLAS_BOUNDARY_GEOJSON "
-                    "to a local path containing the admin-1 polygons in GeoJSON form."
-                )
-            geojson_path = Path(override)
-            log.info("using override GeoJSON: %s", geojson_path)
-            with geojson_path.open("rb") as fh:
-                boundaries = json.load(fh)
-        else:
-            with archive.open(geojson_member) as fh:
-                boundaries = json.load(fh)
+    log.info("reading Mexican boundary polygons from %s", geojson_path)
+    with geojson_path.open("rb") as fh:
+        boundaries = json.load(fh)
 
     # Filter to Mexican states. Natural Earth fields: iso_3166_2 (eg "MX-JAL") and name.
     mexico_features = []

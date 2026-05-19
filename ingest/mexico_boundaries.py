@@ -1,14 +1,15 @@
 """Bronze ingest: Mexican state boundary polygons (for TopoJSON output).
 
-Source: Natural Earth Admin-1 (states/provinces), 1:50m resolution, filtered to Mexico.
-URL: https://naciscdn.org/naturalearth/50m/cultural/ne_50m_admin_1_states_provinces.zip
-License: Natural Earth is public domain (https://www.naturalearthdata.com/about/terms-of-use/).
+Source: Natural Earth Admin-1 (states/provinces), 1:50m resolution, GeoJSON form
+mirrored at github.com/nvkelso/natural-earth-vector. We use the GeoJSON variant
+(not the canonical shapefile zip) so the export stage doesn't need a shapefile
+reader. The export step filters to Mexican states and simplifies to ≤60 KB TopoJSON.
 
-The export stage filters this to Mexican states only and simplifies to fit the ≤60KB
-TopoJSON target.
+License: Natural Earth is public domain
+  (https://www.naturalearthdata.com/about/terms-of-use/).
 
-Override the source URL at runtime via TRANSPLANT_ATLAS_BOUNDARY_URL if Natural Earth
-moves or you want to swap to an INEGI direct download.
+Override via TRANSPLANT_ATLAS_BOUNDARY_URL if you prefer an INEGI direct download
+(remember to update the export-side feature filter to match its property names).
 """
 
 from __future__ import annotations
@@ -33,8 +34,8 @@ from ingest._common import (
 
 SOURCE = "mexico_boundaries"
 DEFAULT_URL = (
-    "https://naciscdn.org/naturalearth/50m/cultural/"
-    "ne_50m_admin_1_states_provinces.zip"
+    "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/"
+    "master/geojson/ne_50m_admin_1_states_provinces.geojson"
 )
 
 
@@ -53,7 +54,7 @@ def main(argv: list[str] | None = None) -> int:
     except SnapshotComplete as exc:
         log.info("snapshot already complete: %s — skipping", exc.path)
         return 0
-    dest = target / "admin_1_states_provinces.zip"
+    dest = target / "admin_1_states_provinces.geojson"
     log.info("downloading → %s", dest.name)
 
     try:
