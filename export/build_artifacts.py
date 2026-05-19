@@ -251,10 +251,22 @@ def _build_mexico_topojson(log: logging.Logger) -> tuple[dict, Path]:
 
 
 def _collect_source_meta(log: logging.Logger) -> list[dict]:
-    """Aggregate one entry per (source, snapshot_date) using each bronze meta.json."""
+    """One entry per (source, snapshot_date), aggregated across all files.
+
+    Bronze meta.json files list every downloaded file individually (200+ entries
+    across all sources). For the public meta.json we collapse to one row per
+    source with a manifest hash (deterministic over the set of per-file SHA256s)
+    plus totals; users can still get per-file provenance from the bronze snapshots.
+    """
+
+    import hashlib
 
     out: list[dict] = []
-    for source_dir in sorted((REPO_ROOT / "data/raw").iterdir() if (REPO_ROOT / "data/raw").exists() else []):
+    raw_root = REPO_ROOT / "data/raw"
+    if not raw_root.exists():
+        return out
+
+    for source_dir in sorted(raw_root.iterdir()):
         if not source_dir.is_dir():
             continue
         for snapshot_dir in sorted(source_dir.iterdir()):
@@ -266,17 +278,31 @@ def _collect_source_meta(log: logging.Logger) -> list[dict]:
             except Exception as exc:  # noqa: BLE001
                 log.warning("could not parse %s: %r", meta_file, exc)
                 continue
-            for f in raw.get("files", []):
-                out.append(
-                    {
-                        "name": f"{raw['source']}::{f['name']}",
-                        "url": f["url"],
-                        "snapshot_date": raw["snapshot_date"],
-                        "sha256": f["sha256"],
-                        "rows_ingested": f.get("row_count"),
-                        "bytes": f.get("bytes"),
-                    }
-                )
+            files = raw.get("files") or []
+            if not files:
+                continue
+
+            # Pick the most common URL prefix as the "dataset" URL; for CKAN-fetched
+            # sources every file shares the same hostname/path-prefix.
+            url = files[0]["url"]
+
+            # Manifest hash: SHA-256 of all per-file SHA-256s concatenated in sorted order.
+            manifest_input = "\n".join(sorted(f["sha256"] for f in files)).encode("utf-8")
+            manifest_sha = hashlib.sha256(manifest_input).hexdigest()
+
+            total_rows = sum(f["row_count"] for f in files if f.get("row_count") is not None) or None
+            total_bytes = sum(f["bytes"] for f in files if f.get("bytes") is not None) or None
+
+            out.append(
+                {
+                    "name": raw["source"],
+                    "url": url,
+                    "snapshot_date": raw["snapshot_date"],
+                    "sha256": manifest_sha,
+                    "rows_ingested": total_rows,
+                    "bytes": total_bytes,
+                }
+            )
     return out
 
 

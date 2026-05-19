@@ -34,8 +34,11 @@ from ingest._common import (
 
 SOURCE = "mexico_boundaries"
 DEFAULT_URL = (
+    # The 1:10m variant is the only Natural Earth admin-1 file with Mexican states;
+    # the 1:50m file only ships ~9 big countries (Russia, US, China, India, ...).
+    # Filesize is ~25 MB but we cache once and downstream filtering shrinks it to <30 KB.
     "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/"
-    "master/geojson/ne_50m_admin_1_states_provinces.geojson"
+    "master/geojson/ne_10m_admin_1_states_provinces.geojson"
 )
 
 
