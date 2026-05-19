@@ -341,6 +341,9 @@ def main(argv: list[str] | None = None) -> int:
 
     log.info("connecting to %s", DUCKDB_PATH)
     con = duckdb.connect(str(DUCKDB_PATH), read_only=True)
+    # dbt's schema config prefixes models with `main_gold`, `main_silver`, `main_seeds`;
+    # set the search path so bare table names resolve in this read-only session.
+    con.execute("SET search_path = 'main_gold, main_silver, main_seeds, main'")
     try:
         log.info("building mexico-transplants.json")
         mexico = _build_mexico_transplants(con)
