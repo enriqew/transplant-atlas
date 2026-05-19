@@ -1,0 +1,33 @@
+state_code,state_name,state_name_normalized
+AGU,Aguascalientes,AGUASCALIENTES
+BCN,Baja California,BAJA CALIFORNIA
+BCS,Baja California Sur,BAJA CALIFORNIA SUR
+CAM,Campeche,CAMPECHE
+CHP,Chiapas,CHIAPAS
+CHH,Chihuahua,CHIHUAHUA
+CMX,Ciudad de México,CIUDAD DE MEXICO
+COA,Coahuila,COAHUILA
+COL,Colima,COLIMA
+DUR,Durango,DURANGO
+GUA,Guanajuato,GUANAJUATO
+GRO,Guerrero,GUERRERO
+HID,Hidalgo,HIDALGO
+JAL,Jalisco,JALISCO
+MEX,México,MEXICO
+MIC,Michoacán,MICHOACAN
+MOR,Morelos,MORELOS
+NAY,Nayarit,NAYARIT
+NLE,Nuevo León,NUEVO LEON
+OAX,Oaxaca,OAXACA
+PUE,Puebla,PUEBLA
+QUE,Querétaro,QUERETARO
+ROO,Quintana Roo,QUINTANA ROO
+SLP,San Luis Potosí,SAN LUIS POTOSI
+SIN,Sinaloa,SINALOA
+SON,Sonora,SONORA
+TAB,Tabasco,TABASCO
+TAM,Tamaulipas,TAMAULIPAS
+TLA,Tlaxcala,TLAXCALA
+VER,Veracruz,VERACRUZ
+YUC,Yucatán,YUCATAN
+ZAC,Zacatecas,ZACATECAS

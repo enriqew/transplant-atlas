@@ -1,0 +1,27 @@
+organ_spanish,organ_english
+RINON,kidney
+RIÑÓN,kidney
+RIÑON,kidney
+HIGADO,liver
+HÍGADO,liver
+CORAZON,heart
+CORAZÓN,heart
+PULMON,lung
+PULMÓN,lung
+PANCREAS,pancreas
+PÁNCREAS,pancreas
+CORNEA,cornea
+CÓRNEA,cornea
+MEDULA OSEA,bone_marrow
+MÉDULA ÓSEA,bone_marrow
+MEDULA,bone_marrow
+RINON-PANCREAS,kidney_pancreas
+RIÑÓN-PÁNCREAS,kidney_pancreas
+RIÑON-PANCREAS,kidney_pancreas
+HUESO,other_tissue
+PIEL,other_tissue
+VALVULA CARDIACA,other_tissue
+VÁLVULA CARDIACA,other_tissue
+TEJIDO MUSCULOESQUELETICO,other_tissue
+TEJIDO MUSCULOESQUELÉTICO,other_tissue
+INTESTINO,other_tissue

@@ -1,0 +1,45 @@
+name: transplant_atlas
+version: "0.1.0"
+config-version: 2
+
+profile: transplant_atlas
+
+model-paths: ["models"]
+seed-paths: ["seeds"]
+test-paths: ["tests"]
+analysis-paths: ["analyses"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+
+target-path: "target"
+clean-targets:
+  - "target"
+  - "dbt_packages"
+  - "logs"
+
+models:
+  transplant_atlas:
+    staging:
+      +schema: silver
+      +materialized: view
+    marts:
+      +schema: gold
+      +materialized: table
+
+seeds:
+  transplant_atlas:
+    +schema: seeds
+    mx_state_codes:
+      +column_types:
+        state_code: varchar
+        state_name: varchar
+        state_name_normalized: varchar
+    organ_translations:
+      +column_types:
+        organ_spanish: varchar
+        organ_english: varchar
+    country_iso:
+      +column_types:
+        country_name: varchar
+        country_iso3: varchar
+        country_iso2: varchar

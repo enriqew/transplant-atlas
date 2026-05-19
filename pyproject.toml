@@ -1,0 +1,46 @@
+[project]
+name = "transplant-atlas"
+version = "0.1.0"
+description = "Offline data pipeline: organ donation and transplantation data (Mexico + global) normalized to static JSON/TopoJSON artifacts."
+readme = "README.md"
+license = { text = "MIT" }
+authors = [{ name = "Enrique Redonda" }]
+requires-python = ">=3.11"
+dependencies = [
+    "duckdb>=1.1.0",
+    "dbt-duckdb>=1.9.0",
+    "dbt-core>=1.9.0",
+    "pandas>=2.2.0",
+    "pyarrow>=17.0.0",
+    "requests>=2.32.0",
+    "pdfplumber==0.11.4",
+    "python-slugify>=8.0.4",
+    "topojson>=1.9",
+    "jsonschema>=4.23.0",
+    "click>=8.1.7",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.3.0",
+    "pytest-mock>=3.14.0",
+    "ruff>=0.7.0",
+]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["ingest*", "export*"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "SIM"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]

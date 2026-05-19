@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/enriqew/transplant-atlas/schemas/world-transplants.schema.json",
+  "title": "World transplants",
+  "description": "One record per (country, year). Source: GODT preferred, else IRODaT.",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+      "country_iso3",
+      "country_name",
+      "year",
+      "total_transplants",
+      "deceased_donors",
+      "living_donors",
+      "deceased_donors_pmp",
+      "living_donors_pmp",
+      "transplants_pmp",
+      "source"
+    ],
+    "properties": {
+      "country_iso3": {
+        "type": "string",
+        "pattern": "^[A-Z]{3}$"
+      },
+      "country_name": {
+        "type": "string",
+        "minLength": 1
+      },
+      "year": {
+        "type": "integer",
+        "minimum": 1990,
+        "maximum": 2100
+      },
+      "total_transplants": { "type": ["integer", "null"], "minimum": 0 },
+      "deceased_donors": { "type": ["integer", "null"], "minimum": 0 },
+      "living_donors": { "type": ["integer", "null"], "minimum": 0 },
+      "deceased_donors_pmp": { "type": ["number", "null"], "minimum": 0 },
+      "living_donors_pmp": { "type": ["number", "null"], "minimum": 0 },
+      "transplants_pmp": { "type": ["number", "null"], "minimum": 0 },
+      "source": {
+        "type": "string",
+        "enum": ["GODT", "IRODaT"]
+      }
+    }
+  }
+}

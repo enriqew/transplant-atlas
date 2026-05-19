@@ -1,0 +1,10 @@
+transplant_atlas:
+  target: local
+  outputs:
+    local:
+      type: duckdb
+      path: "{{ env_var('TRANSPLANT_ATLAS_DUCKDB', '../data/duckdb/atlas.duckdb') }}"
+      threads: 4
+      extensions:
+        - httpfs
+        - spatial

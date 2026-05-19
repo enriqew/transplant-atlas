@@ -1,0 +1,75 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/enriqew/transplant-atlas/schemas/meta.schema.json",
+  "title": "Pipeline output metadata",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "generated_at",
+    "pipeline_version",
+    "sources",
+    "artifact_row_counts",
+    "coverage"
+  ],
+  "properties": {
+    "generated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "pipeline_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "sources": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name", "url", "snapshot_date", "sha256"],
+        "properties": {
+          "name": { "type": "string" },
+          "url": { "type": "string", "format": "uri" },
+          "snapshot_date": {
+            "type": "string",
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "rows_ingested": { "type": ["integer", "null"], "minimum": 0 },
+          "bytes": { "type": ["integer", "null"], "minimum": 0 }
+        }
+      }
+    },
+    "artifact_row_counts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["mexico_transplants", "world_transplants"],
+      "properties": {
+        "mexico_transplants": { "type": "integer", "minimum": 0 },
+        "world_transplants": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "coverage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["mexico_years", "world_years", "countries"],
+      "properties": {
+        "mexico_years": {
+          "type": "array",
+          "items": { "type": "integer" },
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "world_years": {
+          "type": "array",
+          "items": { "type": "integer" },
+          "minItems": 2,
+          "maxItems": 2
+        },
+        "countries": { "type": "integer", "minimum": 0 }
+      }
+    }
+  }
+}

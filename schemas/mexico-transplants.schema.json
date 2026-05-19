@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/enriqew/transplant-atlas/schemas/mexico-transplants.schema.json",
+  "title": "Mexico transplants",
+  "description": "One record per (state, year, organ) combination derived from CENATRA data.",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+      "state_code",
+      "state_name",
+      "year",
+      "organ",
+      "donations",
+      "transplants",
+      "waitlist_end_of_year",
+      "rate_pmp",
+      "donor_type_breakdown"
+    ],
+    "properties": {
+      "state_code": {
+        "type": "string",
+        "pattern": "^[A-Z]{3}$",
+        "description": "ISO 3166-2:MX three-letter code"
+      },
+      "state_name": {
+        "type": "string",
+        "minLength": 1
+      },
+      "year": {
+        "type": "integer",
+        "minimum": 2000,
+        "maximum": 2100
+      },
+      "organ": {
+        "type": "string",
+        "enum": [
+          "kidney",
+          "liver",
+          "heart",
+          "lung",
+          "pancreas",
+          "cornea",
+          "bone_marrow",
+          "kidney_pancreas",
+          "other_tissue"
+        ]
+      },
+      "donations": { "type": ["integer", "null"], "minimum": 0 },
+      "transplants": { "type": ["integer", "null"], "minimum": 0 },
+      "waitlist_end_of_year": { "type": ["integer", "null"], "minimum": 0 },
+      "rate_pmp": {
+        "type": ["number", "null"],
+        "minimum": 0,
+        "description": "Transplants per million population, 1 decimal."
+      },
+      "donor_type_breakdown": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["deceased", "living"],
+        "properties": {
+          "deceased": { "type": ["integer", "null"], "minimum": 0 },
+          "living": { "type": ["integer", "null"], "minimum": 0 }
+        }
+      }
+    }
+  }
+}

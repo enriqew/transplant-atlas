@@ -1,0 +1,193 @@
+version: 2
+
+models:
+  - name: stg_cenatra_transplants
+    description: "One row per transplant procedure performed in Mexico, normalized."
+    columns:
+      - name: state_code
+        description: "ISO 3166-2:MX three-letter code"
+        tests:
+          - not_null
+          - relationships:
+              to: ref('mx_state_codes')
+              field: state_code
+      - name: organ
+        description: "Lowercase English organ enum"
+        tests:
+          - not_null
+          - accepted_values:
+              values:
+                - kidney
+                - liver
+                - heart
+                - lung
+                - pancreas
+                - cornea
+                - bone_marrow
+                - kidney_pancreas
+                - other_tissue
+      - name: transplant_date
+        description: "Date of the procedure"
+        tests:
+          - not_null
+      - name: transplant_year
+        tests:
+          - not_null
+      - name: donor_type
+        tests:
+          - accepted_values:
+              values: ["deceased", "living"]
+              quote: true
+              # NULL allowed if raw row had an unmapped donor type label
+
+  - name: stg_cenatra_donations
+    description: "One row per donation event in Mexico, normalized."
+    columns:
+      - name: state_code
+        tests:
+          - not_null
+          - relationships:
+              to: ref('mx_state_codes')
+              field: state_code
+      - name: donation_date
+        tests:
+          - not_null
+      - name: donor_type
+        tests:
+          - accepted_values:
+              values: ["deceased", "living"]
+              quote: true
+
+  - name: stg_cenatra_waitlist
+    description: "Persons in the Mexican waiting list per state, organ, and reporting date."
+    columns:
+      - name: state_code
+        tests:
+          - not_null
+          - relationships:
+              to: ref('mx_state_codes')
+              field: state_code
+      - name: persons_waiting
+        tests:
+          - not_null
+
+  - name: stg_godt_world
+    description: "Country-year donation/transplantation counts from the GODT global report."
+    columns:
+      - name: country_iso3
+        tests:
+          - not_null
+          - relationships:
+              to: ref('country_iso')
+              field: country_iso3
+      - name: report_year
+        tests:
+          - not_null
+      - name: total_transplants
+        tests:
+          - not_null
+      - name: source
+        tests:
+          - accepted_values:
+              values: ["GODT"]
+              quote: true
+
+  - name: stg_irodat
+    description: "Country-year donation/transplantation counts from the IRODaT registry."
+    columns:
+      - name: country_iso3
+        tests:
+          - not_null
+          - relationships:
+              to: ref('country_iso')
+              field: country_iso3
+      - name: report_year
+        tests:
+          - not_null
+      - name: source
+        tests:
+          - accepted_values:
+              values: ["IRODaT"]
+              quote: true
+
+  - name: stg_population_mx
+    description: "State-year population, summed from CONAPO sex+age breakdown."
+    columns:
+      - name: state_code
+        tests:
+          - not_null
+          - unique:
+              config:
+                where: "report_year = (SELECT MAX(report_year) FROM {{ ref('stg_population_mx') }})"
+          - relationships:
+              to: ref('mx_state_codes')
+              field: state_code
+      - name: report_year
+        tests:
+          - not_null
+      - name: population
+        tests:
+          - not_null
+
+  - name: stg_population_world
+    description: "Country-year total population from World Bank SP.POP.TOTL."
+    columns:
+      - name: country_iso3
+        tests:
+          - not_null
+          - relationships:
+              to: ref('country_iso')
+              field: country_iso3
+      - name: report_year
+        tests:
+          - not_null
+      - name: population
+        tests:
+          - not_null
+
+seeds:
+  - name: mx_state_codes
+    description: "ISO 3166-2:MX codes for the 32 Mexican entities."
+    columns:
+      - name: state_code
+        tests:
+          - not_null
+          - unique
+      - name: state_name_normalized
+        tests:
+          - not_null
+          - unique
+
+  - name: organ_translations
+    description: "Spanish (CENATRA upper-case) to lowercase English enum."
+    columns:
+      - name: organ_spanish
+        tests:
+          - not_null
+          - unique
+      - name: organ_english
+        tests:
+          - not_null
+          - accepted_values:
+              values:
+                - kidney
+                - liver
+                - heart
+                - lung
+                - pancreas
+                - cornea
+                - bone_marrow
+                - kidney_pancreas
+                - other_tissue
+
+  - name: country_iso
+    description: "ISO 3166-1 alpha-3 (and alpha-2) codes for reporting countries."
+    columns:
+      - name: country_iso3
+        tests:
+          - not_null
+          - unique
+      - name: country_name
+        tests:
+          - not_null
+          - unique

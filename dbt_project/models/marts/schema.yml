@@ -1,0 +1,105 @@
+version: 2
+
+models:
+  - name: dim_population_mx_state
+    columns:
+      - name: state_code
+        tests:
+          - not_null
+      - name: report_year
+        tests:
+          - not_null
+      - name: population
+        tests:
+          - not_null
+
+  - name: dim_population_world
+    columns:
+      - name: country_iso3
+        tests:
+          - not_null
+      - name: report_year
+        tests:
+          - not_null
+      - name: population
+        tests:
+          - not_null
+
+  - name: fct_transplants_mx_state_year_organ
+    columns:
+      - name: state_code
+        tests:
+          - not_null
+          - relationships:
+              to: ref('mx_state_codes')
+              field: state_code
+      - name: year
+        tests:
+          - not_null
+      - name: organ
+        tests:
+          - not_null
+          - accepted_values:
+              values:
+                - kidney
+                - liver
+                - heart
+                - lung
+                - pancreas
+                - cornea
+                - bone_marrow
+                - kidney_pancreas
+                - other_tissue
+      - name: transplants
+        tests:
+          - not_null
+
+  - name: fct_donations_mx_state_year
+    columns:
+      - name: state_code
+        tests:
+          - not_null
+      - name: year
+        tests:
+          - not_null
+      - name: donations
+        tests:
+          - not_null
+
+  - name: fct_waitlist_mx_state_quarter
+    columns:
+      - name: state_code
+        tests:
+          - not_null
+      - name: year
+        tests:
+          - not_null
+      - name: quarter
+        tests:
+          - not_null
+          - accepted_values:
+              values: [1, 2, 3, 4]
+      - name: organ
+        tests:
+          - not_null
+
+  - name: fct_transplants_world_country_year
+    columns:
+      - name: country_iso3
+        tests:
+          - not_null
+          - relationships:
+              to: ref('country_iso')
+              field: country_iso3
+      - name: year
+        tests:
+          - not_null
+      - name: total_transplants
+        tests:
+          - not_null
+      - name: source
+        tests:
+          - not_null
+          - accepted_values:
+              values: ["GODT", "IRODaT"]
+              quote: true
