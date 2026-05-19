@@ -35,6 +35,7 @@ build: prebuild
 
 prebuild:
 	$(PYTHON) $(DBT_DIR)/analyses/irodat_html_to_csv.py
+	$(PYTHON) $(DBT_DIR)/analyses/wb_json_to_ndjson.py
 
 test:
 	cd $(DBT_DIR) && dbt test

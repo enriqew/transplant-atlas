@@ -31,8 +31,9 @@ models:
         tests:
           - not_null
           - relationships:
-              to: ref('mx_state_codes')
-              field: state_code
+              arguments:
+                to: ref('mx_state_codes')
+                field: state_code
       - name: year
         tests:
           - not_null
@@ -40,16 +41,17 @@ models:
         tests:
           - not_null
           - accepted_values:
-              values:
-                - kidney
-                - liver
-                - heart
-                - lung
-                - pancreas
-                - cornea
-                - bone_marrow
-                - kidney_pancreas
-                - other_tissue
+              arguments:
+                values:
+                  - kidney
+                  - liver
+                  - heart
+                  - lung
+                  - pancreas
+                  - cornea
+                  - bone_marrow
+                  - kidney_pancreas
+                  - other_tissue
       - name: transplants
         tests:
           - not_null
@@ -78,7 +80,8 @@ models:
         tests:
           - not_null
           - accepted_values:
-              values: [1, 2, 3, 4]
+              arguments:
+                values: [1, 2, 3, 4]
       - name: organ
         tests:
           - not_null
@@ -89,8 +92,9 @@ models:
         tests:
           - not_null
           - relationships:
-              to: ref('country_iso')
-              field: country_iso3
+              arguments:
+                to: ref('country_iso')
+                field: country_iso3
       - name: year
         tests:
           - not_null
@@ -101,5 +105,6 @@ models:
         tests:
           - not_null
           - accepted_values:
-              values: ["GODT", "IRODaT"]
-              quote: true
+              arguments:
+                values: ["GODT", "IRODaT"]
+                quote: true

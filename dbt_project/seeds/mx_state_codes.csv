@@ -1,33 +1,33 @@
-state_code,state_name,state_name_normalized
-AGU,Aguascalientes,AGUASCALIENTES
-BCN,Baja California,BAJA CALIFORNIA
-BCS,Baja California Sur,BAJA CALIFORNIA SUR
-CAM,Campeche,CAMPECHE
-CHP,Chiapas,CHIAPAS
-CHH,Chihuahua,CHIHUAHUA
-CMX,Ciudad de México,CIUDAD DE MEXICO
-COA,Coahuila,COAHUILA
-COL,Colima,COLIMA
-DUR,Durango,DURANGO
-GUA,Guanajuato,GUANAJUATO
-GRO,Guerrero,GUERRERO
-HID,Hidalgo,HIDALGO
-JAL,Jalisco,JALISCO
-MEX,México,MEXICO
-MIC,Michoacán,MICHOACAN
-MOR,Morelos,MORELOS
-NAY,Nayarit,NAYARIT
-NLE,Nuevo León,NUEVO LEON
-OAX,Oaxaca,OAXACA
-PUE,Puebla,PUEBLA
-QUE,Querétaro,QUERETARO
-ROO,Quintana Roo,QUINTANA ROO
-SLP,San Luis Potosí,SAN LUIS POTOSI
-SIN,Sinaloa,SINALOA
-SON,Sonora,SONORA
-TAB,Tabasco,TABASCO
-TAM,Tamaulipas,TAMAULIPAS
-TLA,Tlaxcala,TLAXCALA
-VER,Veracruz,VERACRUZ
-YUC,Yucatán,YUCATAN
-ZAC,Zacatecas,ZACATECAS
+state_code,cve_geo,state_name,state_name_normalized
+AGU,1,Aguascalientes,AGUASCALIENTES
+BCN,2,Baja California,BAJA CALIFORNIA
+BCS,3,Baja California Sur,BAJA CALIFORNIA SUR
+CAM,4,Campeche,CAMPECHE
+COA,5,Coahuila,COAHUILA
+COL,6,Colima,COLIMA
+CHP,7,Chiapas,CHIAPAS
+CHH,8,Chihuahua,CHIHUAHUA
+CMX,9,Ciudad de México,CIUDAD DE MEXICO
+DUR,10,Durango,DURANGO
+GUA,11,Guanajuato,GUANAJUATO
+GRO,12,Guerrero,GUERRERO
+HID,13,Hidalgo,HIDALGO
+JAL,14,Jalisco,JALISCO
+MEX,15,México,MEXICO
+MIC,16,Michoacán,MICHOACAN
+MOR,17,Morelos,MORELOS
+NAY,18,Nayarit,NAYARIT
+NLE,19,Nuevo León,NUEVO LEON
+OAX,20,Oaxaca,OAXACA
+PUE,21,Puebla,PUEBLA
+QUE,22,Querétaro,QUERETARO
+ROO,23,Quintana Roo,QUINTANA ROO
+SLP,24,San Luis Potosí,SAN LUIS POTOSI
+SIN,25,Sinaloa,SINALOA
+SON,26,Sonora,SONORA
+TAB,27,Tabasco,TABASCO
+TAM,28,Tamaulipas,TAMAULIPAS
+TLA,29,Tlaxcala,TLAXCALA
+VER,30,Veracruz,VERACRUZ
+YUC,31,Yucatán,YUCATAN
+ZAC,32,Zacatecas,ZACATECAS

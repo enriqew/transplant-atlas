@@ -1,27 +1,50 @@
 organ_spanish,organ_english
-RINON,kidney
+Riñón,kidney
+Rinon,kidney
 RIÑÓN,kidney
 RIÑON,kidney
-HIGADO,liver
+RINON,kidney
+Riñón-Riñón,kidney
+Hígado,liver
+Higado,liver
 HÍGADO,liver
-CORAZON,heart
+HIGADO,liver
+Hígado-Riñón,liver
+Corazón,heart
+Corazon,heart
 CORAZÓN,heart
-PULMON,lung
+CORAZON,heart
+Pulmón,lung
+Pulmon,lung
 PULMÓN,lung
-PANCREAS,pancreas
+PULMON,lung
+Pulmón-Pulmón,lung
+Páncreas,pancreas
+Pancreas,pancreas
 PÁNCREAS,pancreas
-CORNEA,cornea
+PANCREAS,pancreas
+Córnea,cornea
+Cornea,cornea
 CÓRNEA,cornea
-MEDULA OSEA,bone_marrow
+CORNEA,cornea
+Médula Ósea,bone_marrow
+Medula Osea,bone_marrow
 MÉDULA ÓSEA,bone_marrow
-MEDULA,bone_marrow
-RINON-PANCREAS,kidney_pancreas
+MEDULA OSEA,bone_marrow
+C.P.H.,bone_marrow
+CPH,bone_marrow
+Riñón-Páncreas,kidney_pancreas
+Rinon-Pancreas,kidney_pancreas
 RIÑÓN-PÁNCREAS,kidney_pancreas
-RIÑON-PANCREAS,kidney_pancreas
+RINON-PANCREAS,kidney_pancreas
+Hueso,other_tissue
 HUESO,other_tissue
+Piel,other_tissue
 PIEL,other_tissue
-VALVULA CARDIACA,other_tissue
-VÁLVULA CARDIACA,other_tissue
-TEJIDO MUSCULOESQUELETICO,other_tissue
-TEJIDO MUSCULOESQUELÉTICO,other_tissue
+Válvula Cardiaca,other_tissue
+Valvula Cardiaca,other_tissue
+Tejido Musculoesquelético,other_tissue
+Intestino,other_tissue
 INTESTINO,other_tissue
+Extremidades,other_tissue
+Paratiroides,other_tissue

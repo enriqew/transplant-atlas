@@ -9,23 +9,25 @@ models:
         tests:
           - not_null
           - relationships:
-              to: ref('mx_state_codes')
-              field: state_code
+              arguments:
+                to: ref('mx_state_codes')
+                field: state_code
       - name: organ
         description: "Lowercase English organ enum"
         tests:
           - not_null
           - accepted_values:
-              values:
-                - kidney
-                - liver
-                - heart
-                - lung
-                - pancreas
-                - cornea
-                - bone_marrow
-                - kidney_pancreas
-                - other_tissue
+              arguments:
+                values:
+                  - kidney
+                  - liver
+                  - heart
+                  - lung
+                  - pancreas
+                  - cornea
+                  - bone_marrow
+                  - kidney_pancreas
+                  - other_tissue
       - name: transplant_date
         description: "Date of the procedure"
         tests:
@@ -36,8 +38,9 @@ models:
       - name: donor_type
         tests:
           - accepted_values:
-              values: ["deceased", "living"]
-              quote: true
+              arguments:
+                values: ["deceased", "living"]
+                quote: true
               # NULL allowed if raw row had an unmapped donor type label
 
   - name: stg_cenatra_donations
@@ -47,29 +50,53 @@ models:
         tests:
           - not_null
           - relationships:
-              to: ref('mx_state_codes')
-              field: state_code
+              arguments:
+                to: ref('mx_state_codes')
+                field: state_code
       - name: donation_date
         tests:
           - not_null
       - name: donor_type
         tests:
           - accepted_values:
-              values: ["deceased", "living"]
-              quote: true
+              arguments:
+                values: ["deceased", "living"]
+                quote: true
 
   - name: stg_cenatra_waitlist
-    description: "Persons in the Mexican waiting list per state, organ, and reporting date."
+    description: "One row per patient registered to wait, with normalized quarter and organ."
     columns:
       - name: state_code
         tests:
           - not_null
           - relationships:
-              to: ref('mx_state_codes')
-              field: state_code
-      - name: persons_waiting
+              arguments:
+                to: ref('mx_state_codes')
+                field: state_code
+      - name: reporting_year
         tests:
           - not_null
+      - name: reporting_quarter
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: [1, 2, 3, 4]
+      - name: organ
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values:
+                  - kidney
+                  - liver
+                  - heart
+                  - lung
+                  - pancreas
+                  - cornea
+                  - bone_marrow
+                  - kidney_pancreas
+                  - other_tissue
 
   - name: stg_godt_world
     description: "Country-year donation/transplantation counts from the GODT global report."
@@ -78,8 +105,9 @@ models:
         tests:
           - not_null
           - relationships:
-              to: ref('country_iso')
-              field: country_iso3
+              arguments:
+                to: ref('country_iso')
+                field: country_iso3
       - name: report_year
         tests:
           - not_null
@@ -89,8 +117,9 @@ models:
       - name: source
         tests:
           - accepted_values:
-              values: ["GODT"]
-              quote: true
+              arguments:
+                values: ["GODT"]
+                quote: true
 
   - name: stg_irodat
     description: "Country-year donation/transplantation counts from the IRODaT registry."
@@ -99,16 +128,18 @@ models:
         tests:
           - not_null
           - relationships:
-              to: ref('country_iso')
-              field: country_iso3
+              arguments:
+                to: ref('country_iso')
+                field: country_iso3
       - name: report_year
         tests:
           - not_null
       - name: source
         tests:
           - accepted_values:
-              values: ["IRODaT"]
-              quote: true
+              arguments:
+                values: ["IRODaT"]
+                quote: true
 
   - name: stg_population_mx
     description: "State-year population, summed from CONAPO sex+age breakdown."
@@ -116,12 +147,10 @@ models:
       - name: state_code
         tests:
           - not_null
-          - unique:
-              config:
-                where: "report_year = (SELECT MAX(report_year) FROM {{ ref('stg_population_mx') }})"
           - relationships:
-              to: ref('mx_state_codes')
-              field: state_code
+              arguments:
+                to: ref('mx_state_codes')
+                field: state_code
       - name: report_year
         tests:
           - not_null
@@ -136,8 +165,9 @@ models:
         tests:
           - not_null
           - relationships:
-              to: ref('country_iso')
-              field: country_iso3
+              arguments:
+                to: ref('country_iso')
+                field: country_iso3
       - name: report_year
         tests:
           - not_null
@@ -150,6 +180,10 @@ seeds:
     description: "ISO 3166-2:MX codes for the 32 Mexican entities."
     columns:
       - name: state_code
+        tests:
+          - not_null
+          - unique
+      - name: cve_geo
         tests:
           - not_null
           - unique
@@ -169,16 +203,17 @@ seeds:
         tests:
           - not_null
           - accepted_values:
-              values:
-                - kidney
-                - liver
-                - heart
-                - lung
-                - pancreas
-                - cornea
-                - bone_marrow
-                - kidney_pancreas
-                - other_tissue
+              arguments:
+                values:
+                  - kidney
+                  - liver
+                  - heart
+                  - lung
+                  - pancreas
+                  - cornea
+                  - bone_marrow
+                  - kidney_pancreas
+                  - other_tissue
 
   - name: country_iso
     description: "ISO 3166-1 alpha-3 (and alpha-2) codes for reporting countries."

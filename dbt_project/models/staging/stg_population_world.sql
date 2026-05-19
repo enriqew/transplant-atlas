@@ -2,22 +2,23 @@
   config(materialized='view')
 }}
 
--- Bronze input: data/raw/population_world/<snapshot_date>/sp.pop.totl.json
--- World Bank JSON is a 2-element array: [metadata, rows]. We use DuckDB's JSON
--- extraction to unpack the rows array into a table.
+-- Bronze input: data/raw/population_world/<snapshot_date>/sp.pop.totl.rows.ndjson
+-- The NDJSON file is produced by the analyses/wb_json_to_ndjson.py prebuild step,
+-- which unwraps the World Bank `[meta, rows]` envelope into one record per line.
 
 WITH raw AS (
     SELECT
-        UPPER(TRIM(row->>'$.countryiso3code'))      AS country_iso3_raw,
-        TRY_CAST(row->>'$.date' AS INTEGER)         AS report_year,
-        TRY_CAST(row->>'$.value' AS BIGINT)         AS population,
-        TRIM(row->>'$.country.value')               AS country_name_raw,
+        UPPER(TRIM(countryiso3code))                AS country_iso3_raw,
+        TRY_CAST(date AS INTEGER)                   AS report_year,
+        TRY_CAST(value AS BIGINT)                   AS population,
         filename                                    AS source_filename
-    FROM read_json_auto(
-        '{{ env_var("TRANSPLANT_ATLAS_RAW_ROOT", "../data/raw") }}/population_world/*/sp.pop.totl.json',
+    FROM read_json(
+        '{{ env_var("TRANSPLANT_ATLAS_RAW_ROOT", "../data/raw") }}/population_world/*/sp.pop.totl.rows.ndjson',
+        format='newline_delimited',
         filename=true
-    ) AS payload,
-    UNNEST(payload.json[1]) AS t(row)
+    )
+    WHERE value IS NOT NULL
+      AND countryiso3code IS NOT NULL
 )
 
 SELECT

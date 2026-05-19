@@ -32,6 +32,7 @@ seeds:
     mx_state_codes:
       +column_types:
         state_code: varchar
+        cve_geo: integer
         state_name: varchar
         state_name_normalized: varchar
     organ_translations:
