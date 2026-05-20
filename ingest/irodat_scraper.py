@@ -17,6 +17,7 @@ from __future__ import annotations
 
 import re
 import sys
+import time
 from urllib.parse import urljoin
 
 from ingest._common import (
@@ -39,6 +40,10 @@ SOURCE = "irodat"
 BASE_URL = "https://www.irodat.org/"
 INDEX_URL = "https://www.irodat.org/?p=database"
 
+# Delay between successive country/year detail requests. IRODaT is a small
+# public registry — be polite.
+POLITE_DELAY_S = 0.4
+
 # Captures every country code from the country-picker select on the index page.
 # Options use the 2-letter IRODaT code as `value` (some prefixed with `_` for
 # disambiguation), and the country name as the option text. Skip the placeholder
@@ -46,6 +51,13 @@ INDEX_URL = "https://www.irodat.org/?p=database"
 COUNTRY_OPTION_RE = re.compile(
     r'<option\s+value="([^"]+)"[^>]*>\s*([^<]+?)\s*</option>',
     re.DOTALL | re.IGNORECASE,
+)
+
+# Captures historical year links from the per-country detail page.
+# Markup: <div class="any"><a [class="actiu"] href="?p=database&c=XX&year=YYYY#data">YYYY</a></div>
+YEAR_LINK_RE = re.compile(
+    r'<a[^>]*href="\?p=database&c=([^&"]+)&year=(\d+)',
+    re.IGNORECASE,
 )
 
 
@@ -109,26 +121,81 @@ def main(argv: list[str] | None = None) -> int:
         ],
     )
 
+    total_pages = 0
     for code, name in countries:
-        url = urljoin(BASE_URL, f"?p=database&c={code}#data")
-        dest = target / f"country_{_safe_slug(code)}_{_safe_slug(name).lower()}.html"
-        log.info("downloading %s (%s) → %s", code, name, dest.name)
-        try:
-            n = stream_to_file(url, dest)
-        except Exception as exc:  # noqa: BLE001
-            fail(f"IRODaT detail download failed for {url}: {exc!r}", log=log)
+        slug = _safe_slug(code)
+        name_slug = _safe_slug(name).lower()
+
+        # Step 1: fetch the country default page (latest year + list of all
+        # historical years). Keep the legacy filename — silver parser globs
+        # `country_*.html` and extracts the year from the table contents.
+        default_url = urljoin(BASE_URL, f"?p=database&c={code}#data")
+        default_dest = target / f"country_{slug}_{name_slug}.html"
+        if default_dest.exists() and default_dest.stat().st_size > 0:
+            log.info("default page exists for %s — reusing %s", code, default_dest.name)
+        else:
+            log.info("downloading %s (%s) default → %s", code, name, default_dest.name)
+            try:
+                stream_to_file(default_url, default_dest)
+            except Exception as exc:  # noqa: BLE001
+                fail(f"IRODaT default download failed for {default_url}: {exc!r}", log=log)
+            time.sleep(POLITE_DELAY_S)
+        default_html = default_dest.read_text(encoding="utf-8", errors="replace")
         meta.files.append(
             FileRecord(
-                name=dest.name,
-                url=url,
-                sha256=sha256_of(dest),
-                bytes=n,
+                name=default_dest.name,
+                url=default_url,
+                sha256=sha256_of(default_dest),
+                bytes=default_dest.stat().st_size,
                 row_count=None,
             )
         )
+        total_pages += 1
+
+        # Step 2: parse the historical-year picker. Each link looks like
+        # `?p=database&c=XX&year=YYYY` — keep only the ones for this country.
+        years_found: set[int] = set()
+        for matched_code, year_str in YEAR_LINK_RE.findall(default_html):
+            if matched_code == code:
+                try:
+                    years_found.add(int(year_str))
+                except ValueError:
+                    continue
+        log.info("  → %d historical year link(s) advertised for %s", len(years_found), code)
+
+        # Step 3: fetch each non-default year individually. Skip files that
+        # already exist on disk for fine-grained resumability.
+        for year in sorted(years_found):
+            year_url = urljoin(BASE_URL, f"?p=database&c={code}&year={year}#data")
+            year_dest = target / f"country_{slug}_{name_slug}_y{year}.html"
+            if year_dest.exists() and year_dest.stat().st_size > 0:
+                log.info("    year %d exists — reusing %s", year, year_dest.name)
+            else:
+                log.info("    year %d → %s", year, year_dest.name)
+                try:
+                    stream_to_file(year_url, year_dest)
+                except Exception as exc:  # noqa: BLE001
+                    log.warning("    skipping %s year %d: %r", code, year, exc)
+                    continue
+                time.sleep(POLITE_DELAY_S)
+            meta.files.append(
+                FileRecord(
+                    name=year_dest.name,
+                    url=year_url,
+                    sha256=sha256_of(year_dest),
+                    bytes=year_dest.stat().st_size,
+                    row_count=None,
+                )
+            )
+            total_pages += 1
 
     write_meta(target, meta)
-    log.info("snapshot complete: %s (%d country pages)", target, len(countries))
+    log.info(
+        "snapshot complete: %s (%d countries, %d total HTML pages)",
+        target,
+        len(countries),
+        total_pages,
+    )
     return 0
 
 
