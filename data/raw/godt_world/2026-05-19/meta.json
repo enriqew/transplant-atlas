@@ -1,0 +1,274 @@
+{
+  "source": "godt_world",
+  "snapshot_date": "2026-05-19",
+  "fetched_at": "2026-05-19T05:45:57Z",
+  "pipeline_version": "0.1.0",
+  "files": [
+    {
+      "name": "global_report.pdf",
+      "url": "https://www.transplant-observatory.org/wp-content/uploads/2025/12/2024-data-global-report.pdf",
+      "sha256": "060a29fbadc94d4bff00762f41e5bc8270584cc29c197fc9577e3a92fa5864e5",
+      "bytes": 5652669,
+      "row_count": null
+    },
+    {
+      "name": "page_002_table_1.csv",
+      "url": "https://www.transplant-observatory.org/wp-content/uploads/2025/12/2024-data-global-report.pdf",
+      "sha256": "1d183a10d067a9a8abfca67887852d90940e0c1728be8df0c5bda99f452e08f7",
+      "bytes": 1341,
+      "row_count": 16
+    },
+    {
+      "name": "page_003_table_1.csv",
+      "url": "https://www.transplant-observatory.org/wp-content/uploads/2025/12/2024-data-global-report.pdf",
+      "sha256": "7ff01c908baa2aec67a9941de5bce13014463343b1792e31c09f67254bc8fca2",
+      "bytes": 1344,
+      "row_count": 15
+    },
+    {
+      "name": "page_004_table_1.csv",
+      "url": "https://www.transplant-observatory.org/wp-content/uploads/2025/12/2024-data-global-report.pdf",
+      "sha256": "81f61e056887787fad5ed79f13bd9fad3026e3aea6b5599c7e14f6a5fe0107b8",
+      "bytes": 1045,
+      "row_count": 12
+    },
+    {
+      "name": "page_006_table_1.csv",
+      "url": "https://www.transplant-observatory.org/wp-content/uploads/2025/12/2024-data-global-report.pdf",
+      "sha256": "ebe5732dfbac465672165f9cea34d09dccbf847c0b03ee911d69ac95b7beab4f",
+      "bytes": 82,
+      "row_count": 1
+    },
+    {
+      "name": "page_006_table_2.csv",
+      "url": "https://www.transplant-observatory.org/wp-content/uploads/2025/12/2024-data-global-report.pdf",
+      "sha256": "c803de8fe25aa9fd9fc08fb699735d0c5064475382e0d32eb1245cd1a2c3f997",
+      "bytes": 221,
+      "row_count": 7
+    },
+    {
+      "name": "page_007_table_1.csv",
+      "url": "https://www.transplant-observatory.org/wp-content/uploads/2025/12/2024-data-global-report.pdf",
+      "sha256": "d90a6d98cd2076229249f0b591341b3e528cde07e9c817493456accf6efcc619",
+      "bytes": 79,
+      "row_count": 3
+    },
+    {
+      "name": "page_020_table_10.csv",
+      "url": "https://www.transplant-observatory.org/wp-content/uploads/2025/12/2024-data-global-report.pdf",
+      "sha256": "36716489f14dbc8bade3e50af3780cccff7d4b85202bc9c44430bb812f572954",
+      "bytes": 95,
+      "row_count": 2
+    },
+    {
+      "name": "page_022_table_1.csv",
+      "url": "https://www.transplant-observatory.org/wp-content/uploads/2025/12/2024-data-global-report.pdf",
+      "sha256": "675f81704ca20843fe971d366c9339c3bbf85b005d97541a6696801113e9cd43",
+      "bytes": 77,
+      "row_count": 2
+    },
+    {
+      "name": "page_023_table_1.csv",
+      "url": "https://www.transplant-observatory.org/wp-content/uploads/2025/12/2024-data-global-report.pdf",
+      "sha256": "a8920d83921df13adb568fae0b9e6a076c93c61f44daf871548e6a527660dcd7",
+      "bytes": 86,
+      "row_count": 4
+    },
+    {
+      "name": "page_029_table_1.csv",
+      "url": "https://www.transplant-observatory.org/wp-content/uploads/2025/12/2024-data-global-report.pdf",
+      "sha256": "a1f2557a8db9a3188827cd0233881de20d7240547e1cae7689a6541b14c0cdeb",
+      "bytes": 85,
+      "row_count": 3
+    },
+    {
+      "name": "page_039_table_1.csv",
+      "url": "https://www.transplant-observatory.org/wp-content/uploads/2025/12/2024-data-global-report.pdf",
+      "sha256": "2dbe914656fd2270ad30fd72e6e058beefb6d7c94a51201dfb3245e5ee1a7aaf",
+      "bytes": 9,
+      "row_count": 1
+    },
+    {
+      "name": "page_039_table_2.csv",
+      "url": "https://www.transplant-observatory.org/wp-content/uploads/2025/12/2024-data-global-report.pdf",
+      "sha256": "4f3e648b2d0006ee6a818aac18201c6c5680eefd31247af6788cca4dfde77885",
+      "bytes": 14,
+      "row_count": 1
+    },
+    {
+      "name": "page_039_table_3.csv",
+      "url": "https://www.transplant-observatory.org/wp-content/uploads/2025/12/2024-data-global-report.pdf",
+      "sha256": "4d6950d92dc4a03749cca50cf739b4314b21284359c38b433144f0f77a5a0d13",
+      "bytes": 11,
+      "row_count": 1
+    },
+    {
+      "name": "page_039_table_4.csv",
+      "url": "https://www.transplant-observatory.org/wp-content/uploads/2025/12/2024-data-global-report.pdf",
+      "sha256": "544be739cf65eb2511b7603ec2e1b71563b706e35f3a433112b3cba43ce6800b",
+      "bytes": 13,
+      "row_count": 1
+    },
+    {
+      "name": "page_039_table_5.csv",
+      "url": "https://www.transplant-observatory.org/wp-content/uploads/2025/12/2024-data-global-report.pdf",
+      "sha256": "60d76b62ac13dec8f076d8ae36715da4dd538773122a0adfd60996fe38157efe",
+      "bytes": 13,
+      "row_count": 1
+    },
+    {
+      "name": "page_039_table_6.csv",
+      "url": "https://www.transplant-observatory.org/wp-content/uploads/2025/12/2024-data-global-report.pdf",
+      "sha256": "e62124f115c6ddab86f91cd98ca1883b03afec318bed4097c41a509b2b545784",
+      "bytes": 13,
+      "row_count": 1
+    },
+    {
+      "name": "page_039_table_7.csv",
+      "url": "https://www.transplant-observatory.org/wp-content/uploads/2025/12/2024-data-global-report.pdf",
+      "sha256": "ba90c9c9b7fba9c80c433a2532b9b030fb88e354346da365c8cc81753f6a2f88",
+      "bytes": 427,
+      "row_count": 6
+    },
+    {
+      "name": "page_042_table_1.csv",
+      "url": "https://www.transplant-observatory.org/wp-content/uploads/2025/12/2024-data-global-report.pdf",
+      "sha256": "87f16ac805512ba03973725d7823d780cfcd8ce4a2da8f38ba46e7096d0edce9",
+      "bytes": 8,
+      "row_count": 1
+    },
+    {
+      "name": "page_042_table_2.csv",
+      "url": "https://www.transplant-observatory.org/wp-content/uploads/2025/12/2024-data-global-report.pdf",
+      "sha256": "ac47e2d228d2c8cafde2ea03956a17282f82063f440c4b0aac2fcd65d0f34419",
+      "bytes": 12,
+      "row_count": 1
+    },
+    {
+      "name": "page_042_table_3.csv",
+      "url": "https://www.transplant-observatory.org/wp-content/uploads/2025/12/2024-data-global-report.pdf",
+      "sha256": "9a37f674d10955ad1eacf8fa3eb1172aeca50f4b4595190d5165b3a553a7d2fb",
+      "bytes": 10,
+      "row_count": 1
+    },
+    {
+      "name": "page_042_table_4.csv",
+      "url": "https://www.transplant-observatory.org/wp-content/uploads/2025/12/2024-data-global-report.pdf",
+      "sha256": "de9125835fffddf5fa2504ed20e5c9218c154ea1fa09b9dec53420f0b973c1b9",
+      "bytes": 12,
+      "row_count": 1
+    },
+    {
+      "name": "page_042_table_5.csv",
+      "url": "https://www.transplant-observatory.org/wp-content/uploads/2025/12/2024-data-global-report.pdf",
+      "sha256": "6e288ae6f0ec03b90965e472b2b4ae6f4a37d16604b6ad86319f8ac18e1959af",
+      "bytes": 12,
+      "row_count": 1
+    },
+    {
+      "name": "page_042_table_6.csv",
+      "url": "https://www.transplant-observatory.org/wp-content/uploads/2025/12/2024-data-global-report.pdf",
+      "sha256": "eba461a2f559066042b30258f3abaae65b05c2cebb762a3137897db4f615188a",
+      "bytes": 12,
+      "row_count": 1
+    },
+    {
+      "name": "page_042_table_7.csv",
+      "url": "https://www.transplant-observatory.org/wp-content/uploads/2025/12/2024-data-global-report.pdf",
+      "sha256": "2b2d48119cd38245ba0765af333c5e34c3829f0a8bb0eb094d62c5618dc3cc8d",
+      "bytes": 414,
+      "row_count": 6
+    },
+    {
+      "name": "page_045_table_1.csv",
+      "url": "https://www.transplant-observatory.org/wp-content/uploads/2025/12/2024-data-global-report.pdf",
+      "sha256": "885d623d2bb7cb4d9512a10c98bb597406c0fd024708f0aeaa7aadd5fbd6083f",
+      "bytes": 509,
+      "row_count": 18
+    },
+    {
+      "name": "page_048_table_1.csv",
+      "url": "https://www.transplant-observatory.org/wp-content/uploads/2025/12/2024-data-global-report.pdf",
+      "sha256": "a946ada02a24ef51db3ad9bd94c65a4ae69c676cc37dd7bb2a584f68ccf7e0b5",
+      "bytes": 493,
+      "row_count": 17
+    },
+    {
+      "name": "page_051_table_1.csv",
+      "url": "https://www.transplant-observatory.org/wp-content/uploads/2025/12/2024-data-global-report.pdf",
+      "sha256": "239c8a3c70023010398dd7905980709494b6d8d3d213274dddae2b5500a966d7",
+      "bytes": 494,
+      "row_count": 18
+    },
+    {
+      "name": "page_054_table_1.csv",
+      "url": "https://www.transplant-observatory.org/wp-content/uploads/2025/12/2024-data-global-report.pdf",
+      "sha256": "6ff4e784f869de59b1ea6292e82651312a9b1fcf8aeb0846772c9699ffd6c824",
+      "bytes": 477,
+      "row_count": 18
+    },
+    {
+      "name": "page_055_table_1.csv",
+      "url": "https://www.transplant-observatory.org/wp-content/uploads/2025/12/2024-data-global-report.pdf",
+      "sha256": "e775f1e4edea038d03cd8ace04208849b7b23feb05e869602306d6d2cd58659a",
+      "bytes": 90,
+      "row_count": 3
+    },
+    {
+      "name": "page_056_table_1.csv",
+      "url": "https://www.transplant-observatory.org/wp-content/uploads/2025/12/2024-data-global-report.pdf",
+      "sha256": "5a3184f3f693819ad7f850d35ce93d07ffec2c8440b5670189900a77336a4535",
+      "bytes": 4056,
+      "row_count": 300
+    },
+    {
+      "name": "page_057_table_1.csv",
+      "url": "https://www.transplant-observatory.org/wp-content/uploads/2025/12/2024-data-global-report.pdf",
+      "sha256": "14f7d0f4d4af1c12ce49d6ebf45c726028a6dcf615559b633eabdc18806d07f2",
+      "bytes": 834,
+      "row_count": 19
+    },
+    {
+      "name": "page_058_table_1.csv",
+      "url": "https://www.transplant-observatory.org/wp-content/uploads/2025/12/2024-data-global-report.pdf",
+      "sha256": "7d5196448ab87a1041228be39678095143ebfc3ca2974198ad2c42fa0ca60d9d",
+      "bytes": 66,
+      "row_count": 2
+    },
+    {
+      "name": "page_062_table_1.csv",
+      "url": "https://www.transplant-observatory.org/wp-content/uploads/2025/12/2024-data-global-report.pdf",
+      "sha256": "1fa79a6c85b667acfa4f9ca097ad1d70c58f02f83f0ed5fd57fdca87e999530e",
+      "bytes": 637,
+      "row_count": 58
+    },
+    {
+      "name": "page_065_table_1.csv",
+      "url": "https://www.transplant-observatory.org/wp-content/uploads/2025/12/2024-data-global-report.pdf",
+      "sha256": "e83e5b8bed1909b42e68fca5002d13df32c86d25fb689d308ede90891dda2084",
+      "bytes": 1237,
+      "row_count": 29
+    },
+    {
+      "name": "page_066_table_1.csv",
+      "url": "https://www.transplant-observatory.org/wp-content/uploads/2025/12/2024-data-global-report.pdf",
+      "sha256": "80f910e147d15777a135614a98b5bdd234aaff18555430cf0c4395ab8127c46a",
+      "bytes": 111,
+      "row_count": 4
+    },
+    {
+      "name": "page_068_table_1.csv",
+      "url": "https://www.transplant-observatory.org/wp-content/uploads/2025/12/2024-data-global-report.pdf",
+      "sha256": "1729cc9f1c460d023cf49206970170e38c9550ac3a7f1337bd2c3b7231877ee8",
+      "bytes": 77,
+      "row_count": 6
+    },
+    {
+      "name": "page_068_table_2.csv",
+      "url": "https://www.transplant-observatory.org/wp-content/uploads/2025/12/2024-data-global-report.pdf",
+      "sha256": "5c744e3762864931cc37b69f4d7c1b8fa587b031498195c83cac2492964db9bd",
+      "bytes": 89,
+      "row_count": 7
+    }
+  ]
+}

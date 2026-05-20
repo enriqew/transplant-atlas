@@ -1,0 +1,15 @@
+{
+  "source": "mexico_boundaries",
+  "snapshot_date": "2026-05-19",
+  "fetched_at": "2026-05-19T06:44:19Z",
+  "pipeline_version": "0.1.0",
+  "files": [
+    {
+      "name": "admin_1_states_provinces.geojson",
+      "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_10m_admin_1_states_provinces.geojson",
+      "sha256": "22d0e3ad85eb3e27f17cabf8ba2d50e554fbc27a87796ff891d958185da62fb5",
+      "bytes": 40726851,
+      "row_count": null
+    }
+  ]
+}
