@@ -1,11 +1,19 @@
 {
-  "generated_at": "2026-05-20T04:45:40Z",
+  "generated_at": "2026-05-21T04:06:44Z",
   "pipeline_version": "0.1.0",
   "sources": [
     {
       "name": "cenatra_donations",
       "url": "https://repodatos.atdt.gob.mx/api_update/cenatra/donaciones_organos_tejidos_fines_trasplante/donaciones_4toTrimestre2025.csv",
       "snapshot_date": "2026-05-19",
+      "sha256": "f98a188cb82dcf07b0d9dc50cbccb6c7969e4a29ea0aebfb5ca0fa5e0e0217e1",
+      "rows_ingested": 19467,
+      "bytes": 3011384
+    },
+    {
+      "name": "cenatra_donations",
+      "url": "https://repodatos.atdt.gob.mx/api_update/cenatra/donaciones_organos_tejidos_fines_trasplante/donaciones_4toTrimestre2025.csv",
+      "snapshot_date": "2026-05-20",
       "sha256": "f98a188cb82dcf07b0d9dc50cbccb6c7969e4a29ea0aebfb5ca0fa5e0e0217e1",
       "rows_ingested": 19467,
       "bytes": 3011384
@@ -19,9 +27,25 @@
       "bytes": 6749388
     },
     {
+      "name": "cenatra_transplants",
+      "url": "https://repodatos.atdt.gob.mx/api_update/cenatra/trasplantes_organos_tejidos/trasplantes_4toTrimestre2025.csv",
+      "snapshot_date": "2026-05-20",
+      "sha256": "3576329e6f6270decb1c0151ff7c111e2ebea929bddbbee44b0fa7177a34afb0",
+      "rows_ingested": 28980,
+      "bytes": 6749388
+    },
+    {
       "name": "cenatra_waitlist__establecimientos_activos_programas",
       "url": "https://repodatos.atdt.gob.mx/api_update/cenatra/establecimientos_activos_programas/establecimientos_4totrimestre_2025.csv",
       "snapshot_date": "2026-05-19",
+      "sha256": "9b75e1c32ba2e09616858941030038a8718564f430861881a73ec221d9391171",
+      "rows_ingested": 12494,
+      "bytes": 1713636
+    },
+    {
+      "name": "cenatra_waitlist__establecimientos_activos_programas",
+      "url": "https://repodatos.atdt.gob.mx/api_update/cenatra/establecimientos_activos_programas/establecimientos_4totrimestre_2025.csv",
+      "snapshot_date": "2026-05-20",
       "sha256": "9b75e1c32ba2e09616858941030038a8718564f430861881a73ec221d9391171",
       "rows_ingested": 12494,
       "bytes": 1713636
@@ -35,12 +59,28 @@
       "bytes": 88476932
     },
     {
+      "name": "cenatra_waitlist__pacientes_espera_organo_tejido",
+      "url": "https://repodatos.atdt.gob.mx/api_update/cenatra/pacientes_espera_organo_tejido/pacientes_espera_4toTrimestre2025.csv",
+      "snapshot_date": "2026-05-20",
+      "sha256": "52c5544efc04c65a0e19bad8f56c06ffb47b8cfda3877570db8cff17f28efa11",
+      "rows_ingested": 459905,
+      "bytes": 88476932
+    },
+    {
       "name": "godt_world",
       "url": "https://www.transplant-observatory.org/wp-content/uploads/2025/12/2024-data-global-report.pdf",
       "snapshot_date": "2026-05-19",
       "sha256": "8cebd959d682de6cbc69045998772184f15254532ec1cfd5e3fa3e31802bad20",
       "rows_ingested": 588,
       "bytes": 5667274
+    },
+    {
+      "name": "godt_world",
+      "url": "https://www.transplant-observatory.org/wp-content/uploads/2025/12/2024-data-global-report.pdf",
+      "snapshot_date": "2026-05-20",
+      "sha256": "ddaf2c841e49324fe9ea65ed7239c394ed5b8df03f66ea6d9ffa169bf9853707",
+      "rows_ingested": 436,
+      "bytes": 5661823
     },
     {
       "name": "irodat",
@@ -51,6 +91,14 @@
       "bytes": 95835843
     },
     {
+      "name": "irodat",
+      "url": "https://www.irodat.org/?p=database",
+      "snapshot_date": "2026-05-20",
+      "sha256": "541bd7be6afc8a5a377f5a1ba0ca08c2bedaceee4adfd14339f85c4531e622e2",
+      "rows_ingested": null,
+      "bytes": 95921160
+    },
+    {
       "name": "mexico_boundaries",
       "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_10m_admin_1_states_provinces.geojson",
       "snapshot_date": "2026-05-19",
@@ -59,9 +107,33 @@
       "bytes": 40726851
     },
     {
+      "name": "mexico_boundaries",
+      "url": "https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/ne_10m_admin_1_states_provinces.geojson",
+      "snapshot_date": "2026-05-20",
+      "sha256": "d3e34ab27cc51aad0ed8d1f85d97cc92c91796fcf2067066c261b1c89ba2cf01",
+      "rows_ingested": null,
+      "bytes": 40726851
+    },
+    {
+      "name": "ont_spain",
+      "url": "https://www.ont.es/wp-content/uploads/2025/01/BALANCE-ONT-2024-PRENSA-completo.pdf",
+      "snapshot_date": "2026-05-20",
+      "sha256": "825ae08f0a491831f543f1fb0678eb6d329016f6daae9ad1ac06b0ca4a3cf5d3",
+      "rows_ingested": 647,
+      "bytes": 2701249
+    },
+    {
       "name": "population_mx",
       "url": "https://repodatos.atdt.gob.mx/CONAPO/proyecciones/00_Pob_Mitad_1950_2070.csv",
       "snapshot_date": "2026-05-19",
+      "sha256": "99c3addedb13934023421106df6cf6b4facde52319a31feac0dfe0b1e2bc7f58",
+      "rows_ingested": 711040,
+      "bytes": 45228748
+    },
+    {
+      "name": "population_mx",
+      "url": "https://repodatos.atdt.gob.mx/CONAPO/proyecciones/00_Pob_Mitad_1950_2070.csv",
+      "snapshot_date": "2026-05-20",
       "sha256": "99c3addedb13934023421106df6cf6b4facde52319a31feac0dfe0b1e2bc7f58",
       "rows_ingested": 711040,
       "bytes": 45228748
@@ -73,11 +145,19 @@
       "sha256": "f2b5e6312ef8511666b6bd5b47b8a389085214593ce19738ac44002299224081",
       "rows_ingested": 17556,
       "bytes": 3912774
+    },
+    {
+      "name": "population_world",
+      "url": "https://api.worldbank.org/v2/country/all/indicator/SP.POP.TOTL?format=json&per_page=20000",
+      "snapshot_date": "2026-05-20",
+      "sha256": "63ff2c1961001681b99ae7b79886269f0d02f9c454efc019f5bbbe1a1e29e92a",
+      "rows_ingested": 17556,
+      "bytes": 3912775
     }
   ],
   "artifact_row_counts": {
     "mexico_transplants": 608,
-    "world_transplants": 2003
+    "world_transplants": 2005
   },
   "coverage": {
     "mexico_years": [
