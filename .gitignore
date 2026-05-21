@@ -12,11 +12,12 @@ dist/
 .ruff_cache/
 .mypy_cache/
 
-# IDEs
+# IDEs and local tooling
 .idea/
 .vscode/
 *.swp
 *.swo
+.claude/
 
 # Secrets — defensive, the pipeline does not require any
 .env
