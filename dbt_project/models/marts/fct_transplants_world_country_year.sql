@@ -2,8 +2,19 @@
   config(materialized='table')
 }}
 
--- One row per (country_iso3, year). Unions GODT and IRODaT, preferring GODT when
--- both sources report the same country-year. Adds pmp rates from World Bank.
+-- One row per (country_iso3, year). Sources ranked by authority; the lowest
+-- rank wins when multiple sources cover the same country-year.
+--
+-- Source hierarchy:
+--   1 GODT         — global, currently contributes 0 rows (PDF extraction yields
+--                    only WHO regional aggregates, not country-level; kept as a
+--                    placeholder for when country-level data becomes available)
+--   2 ONT          — authoritative for Spain (ESP)
+--   3 Eurotransplant — authoritative for AUT, BEL, HRV, DEU, HUN, NLD, SVN
+--   4 IRODaT       — self-reported global coverage; fills all remaining gaps
+--
+-- country_name is normalised to the canonical spelling in the country_iso seed so
+-- that different source spellings (e.g. "Czech Republic" vs "Czechia") are unified.
 
 WITH combined AS (
     SELECT
@@ -14,7 +25,7 @@ WITH combined AS (
         deceased_donors,
         living_donors,
         source,
-        1                                                  AS source_rank   -- GODT preferred
+        1                                                  AS source_rank
     FROM {{ ref('stg_godt_world') }}
 
     UNION ALL
@@ -40,7 +51,20 @@ WITH combined AS (
         deceased_donors,
         living_donors,
         source,
-        3                                                  AS source_rank
+        3                                                  AS source_rank   -- ET: authoritative for 7 member states
+    FROM {{ ref('stg_eurotransplant') }}
+
+    UNION ALL
+
+    SELECT
+        country_iso3,
+        country_name,
+        report_year,
+        total_transplants,
+        deceased_donors,
+        living_donors,
+        source,
+        4                                                  AS source_rank
     FROM {{ ref('stg_irodat') }}
 ),
 
@@ -62,8 +86,11 @@ deduped AS (
 
 SELECT
     deduped.country_iso3,
-    deduped.country_name,
-    deduped.report_year                                                 AS year,
+    COALESCE(
+        country_seed.country_name,
+        deduped.country_name
+    )                                                                    AS country_name,
+    deduped.report_year                                                  AS year,
     deduped.total_transplants,
     deduped.deceased_donors,
     deduped.living_donors,
@@ -85,4 +112,6 @@ FROM deduped
 LEFT JOIN {{ ref('dim_population_world') }} AS population
     ON population.country_iso3 = deduped.country_iso3
    AND population.report_year = deduped.report_year
+LEFT JOIN {{ ref('country_iso') }} AS country_seed
+    ON country_seed.country_iso3 = deduped.country_iso3
 WHERE deduped.pick = 1

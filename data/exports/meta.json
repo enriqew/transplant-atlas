@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-21T04:31:45Z",
+  "generated_at": "2026-05-21T05:40:17Z",
   "pipeline_version": "0.1.0",
   "sources": [
     {
@@ -65,6 +65,14 @@
       "sha256": "52c5544efc04c65a0e19bad8f56c06ffb47b8cfda3877570db8cff17f28efa11",
       "rows_ingested": 459905,
       "bytes": 88476932
+    },
+    {
+      "name": "eurotransplant",
+      "url": "https://statistics.eurotransplant.org/reportloader.php?report=11034&format=html&download=0",
+      "snapshot_date": "2026-05-20",
+      "sha256": "7834f817e99b7f9f093439c465b6ca90570896634f4f43758eb30910040ec42e",
+      "rows_ingested": null,
+      "bytes": 162956
     },
     {
       "name": "godt_world",
@@ -157,7 +165,7 @@
   ],
   "artifact_row_counts": {
     "mexico_transplants": 608,
-    "world_transplants": 2005
+    "world_transplants": 2006
   },
   "coverage": {
     "mexico_years": [

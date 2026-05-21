@@ -1,0 +1,22 @@
+{
+  "source": "eurotransplant",
+  "snapshot_date": "2026-05-20",
+  "fetched_at": "2026-05-21T05:37:16Z",
+  "pipeline_version": "0.1.0",
+  "files": [
+    {
+      "name": "deceased_donors.html",
+      "url": "https://statistics.eurotransplant.org/reportloader.php?report=11034&format=html&download=0",
+      "sha256": "b25095f4c843c4aae813978e24bdc7781a63b9d37afe40c50986ef021bd57ceb",
+      "bytes": 52210,
+      "row_count": null
+    },
+    {
+      "name": "transplants_pmp.html",
+      "url": "https://statistics.eurotransplant.org/reportloader.php?report=10821-33157&format=html&download=0",
+      "sha256": "071ac1f860fe8173f0174b37c878def0eafd37cfae3d63a37ef45fa0fa5d42f0",
+      "bytes": 110746,
+      "row_count": null
+    }
+  ]
+}
