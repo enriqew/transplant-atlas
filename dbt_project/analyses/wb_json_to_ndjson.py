@@ -61,7 +61,7 @@ def main() -> int:
             fh.write("\n")
             written += 1
 
-    print(f"wrote {written} rows → {dest}")
+    print(f"wrote {written} rows -> {dest}")
     return 0 if written else 1
 
 
