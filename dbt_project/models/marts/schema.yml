@@ -106,5 +106,5 @@ models:
           - not_null
           - accepted_values:
               arguments:
-                values: ["GODT", "IRODaT"]
+                values: ["GODT", "IRODaT", "ONT"]
                 quote: true
