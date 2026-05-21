@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-05-21T05:40:17Z",
+  "generated_at": "2026-05-21T06:07:11Z",
   "pipeline_version": "0.1.0",
   "sources": [
     {
@@ -161,11 +161,19 @@
       "sha256": "63ff2c1961001681b99ae7b79886269f0d02f9c454efc019f5bbbe1a1e29e92a",
       "rows_ingested": 17556,
       "bytes": 3912775
+    },
+    {
+      "name": "scandiatransplant",
+      "url": "https://www.scandiatransplant.org/data/scandiatransplant-figures/Scandiatransplant_tx_figures_01jan2026.xlsx",
+      "snapshot_date": "2026-05-20",
+      "sha256": "980922519445213b177c840f60a69ae79e024be6f6bdfb32b3f188c912a0eef9",
+      "rows_ingested": null,
+      "bytes": 327210
     }
   ],
   "artifact_row_counts": {
     "mexico_transplants": 608,
-    "world_transplants": 2006
+    "world_transplants": 1947
   },
   "coverage": {
     "mexico_years": [

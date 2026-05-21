@@ -30,6 +30,7 @@ ingest:
 	$(PYTHON) -m ingest.irodat_scraper --snapshot-date $(SNAPSHOT_DATE)
 	$(PYTHON) -m ingest.ont_spain --snapshot-date $(SNAPSHOT_DATE)
 	$(PYTHON) -m ingest.eurotransplant --snapshot-date $(SNAPSHOT_DATE)
+	$(PYTHON) -m ingest.scandiatransplant --snapshot-date $(SNAPSHOT_DATE)
 	$(PYTHON) -m ingest.mexico_boundaries --snapshot-date $(SNAPSHOT_DATE)
 
 build: prebuild
@@ -40,6 +41,7 @@ prebuild:
 	$(PYTHON) $(DBT_DIR)/analyses/wb_json_to_ndjson.py
 	$(PYTHON) $(DBT_DIR)/analyses/ont_spain_pdf_to_csv.py
 	$(PYTHON) $(DBT_DIR)/analyses/eurotransplant_html_to_csv.py
+	$(PYTHON) $(DBT_DIR)/analyses/scandiatransplant_xlsx_to_csv.py
 
 test:
 	cd $(DBT_DIR) && dbt test

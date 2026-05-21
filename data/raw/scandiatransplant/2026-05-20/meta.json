@@ -1,0 +1,15 @@
+{
+  "source": "scandiatransplant",
+  "snapshot_date": "2026-05-20",
+  "fetched_at": "2026-05-21T06:00:10Z",
+  "pipeline_version": "0.1.0",
+  "files": [
+    {
+      "name": "Scandiatransplant_tx_figures_01jan2026.xlsx",
+      "url": "https://www.scandiatransplant.org/data/scandiatransplant-figures/Scandiatransplant_tx_figures_01jan2026.xlsx",
+      "sha256": "f046af34a36b94ba61c76d335f75ac0a666e399626c57b9ab10beee0deb8776a",
+      "bytes": 327210,
+      "row_count": null
+    }
+  ]
+}

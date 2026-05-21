@@ -6,12 +6,13 @@
 -- rank wins when multiple sources cover the same country-year.
 --
 -- Source hierarchy:
---   1 GODT         — global, currently contributes 0 rows (PDF extraction yields
---                    only WHO regional aggregates, not country-level; kept as a
---                    placeholder for when country-level data becomes available)
---   2 ONT          — authoritative for Spain (ESP)
---   3 Eurotransplant — authoritative for AUT, BEL, HRV, DEU, HUN, NLD, SVN
---   4 IRODaT       — self-reported global coverage; fills all remaining gaps
+--   1 GODT             — global, currently contributes 0 rows (PDF extraction yields
+--                        only WHO regional aggregates, not country-level; kept as a
+--                        placeholder for when country-level data becomes available)
+--   2 ONT              — authoritative for Spain (ESP)
+--   3 Eurotransplant   — authoritative for AUT, BEL, HRV, DEU, HUN, NLD, SVN
+--   4 Scandiatransplant — authoritative for DNK, SWE, NOR, FIN, ISL, EST
+--   5 IRODaT           — self-reported global coverage; fills all remaining gaps
 --
 -- country_name is normalised to the canonical spelling in the country_iso seed so
 -- that different source spellings (e.g. "Czech Republic" vs "Czechia") are unified.
@@ -64,7 +65,20 @@ WITH combined AS (
         deceased_donors,
         living_donors,
         source,
-        4                                                  AS source_rank
+        4                                                  AS source_rank   -- SCTP: authoritative for 6 Nordic/Baltic states
+    FROM {{ ref('stg_scandiatransplant') }}
+
+    UNION ALL
+
+    SELECT
+        country_iso3,
+        country_name,
+        report_year,
+        total_transplants,
+        deceased_donors,
+        living_donors,
+        source,
+        5                                                  AS source_rank
     FROM {{ ref('stg_irodat') }}
 ),
 

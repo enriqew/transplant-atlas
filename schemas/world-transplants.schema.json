@@ -41,7 +41,7 @@
       "transplants_pmp": { "type": ["number", "null"], "minimum": 0 },
       "source": {
         "type": "string",
-        "enum": ["GODT", "IRODaT", "ONT", "Eurotransplant"]
+        "enum": ["GODT", "IRODaT", "ONT", "Eurotransplant", "Scandiatransplant"]
       }
     }
   }
