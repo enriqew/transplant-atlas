@@ -27,7 +27,20 @@ WITH combined AS (
         deceased_donors,
         living_donors,
         source,
-        2                                                  AS source_rank
+        2                                                  AS source_rank   -- ONT: authoritative for Spain
+    FROM {{ ref('stg_ont_spain') }}
+
+    UNION ALL
+
+    SELECT
+        country_iso3,
+        country_name,
+        report_year,
+        total_transplants,
+        deceased_donors,
+        living_donors,
+        source,
+        3                                                  AS source_rank
     FROM {{ ref('stg_irodat') }}
 ),
 
