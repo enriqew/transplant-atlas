@@ -1,0 +1,162 @@
+{
+  "source": "cenatra_donations",
+  "snapshot_date": "2026-05-20",
+  "fetched_at": "2026-05-21T03:38:15Z",
+  "pipeline_version": "0.1.0",
+  "files": [
+    {
+      "name": "Donaciones_por_muerte_encefálica_y_paro_cardiorrespiratorio_(4to_trimestre_2025).csv",
+      "url": "https://repodatos.atdt.gob.mx/api_update/cenatra/donaciones_organos_tejidos_fines_trasplante/donaciones_4toTrimestre2025.csv",
+      "sha256": "4d37202654b182a8caa016881e085c438d3fb84181c787387d8df369d034ea68",
+      "bytes": 159584,
+      "row_count": 978
+    },
+    {
+      "name": "Donaciones_por_muerte_encefálica_y_paro_cardiorrespiratorio_(1er_trimestre_2025).csv",
+      "url": "https://repodatos.atdt.gob.mx/api_update/cenatra/donaciones_organos_tejidos_fines_trasplante/CENATRA_80_Donaciones1erTrimestre2025.csv",
+      "sha256": "7b2cc897b56230d53b4da5320b6fcb2910087a91cc16c43ce978ee6870d978d7",
+      "bytes": 185675,
+      "row_count": 1197
+    },
+    {
+      "name": "Donaciones_por_muerte_encefálica_y_paro_cardiorrespiratorio_(4to_trimestre_2024).csv",
+      "url": "https://repodatos.atdt.gob.mx/api_update/cenatra/donaciones_organos_tejidos_fines_trasplante/CENATRA_81_Donaciones4toTrimestre2024.csv",
+      "sha256": "130c7ec80926f8707d19912d18a2ce4842b814a6eb6924ba93dd0d3ff1234c65",
+      "bytes": 159704,
+      "row_count": 1032
+    },
+    {
+      "name": "Donaciones_por_muerte_encefálica_y_paro_cardiorrespiratorio_(3er_trimestre_2024).csv",
+      "url": "https://repodatos.atdt.gob.mx/api_update/cenatra/donaciones_organos_tejidos_fines_trasplante/CENATRA_82_Donaciones3erTrimestre2024.csv",
+      "sha256": "87b1f42198f97cc21c0d5de669c6fadcb414596b26a072080cdd68434be58d9f",
+      "bytes": 170608,
+      "row_count": 1088
+    },
+    {
+      "name": "Donaciones_por_muerte_encefálica_y_paro_cardiorrespiratorio_(2do_trimestre_2024).csv",
+      "url": "https://repodatos.atdt.gob.mx/api_update/cenatra/donaciones_organos_tejidos_fines_trasplante/CENATRA_83_Donaciones2doTrimestre2024.csv",
+      "sha256": "88b7046107de9ddf73429e4815eba37f0760f73d9366427a83ac1776f9ec1f33",
+      "bytes": 197698,
+      "row_count": 1295
+    },
+    {
+      "name": "Donaciones_por_muerte_encefálica_y_paro_cardiorrespiratorio_(1er_trimestre_2024).csv",
+      "url": "https://repodatos.atdt.gob.mx/api_update/cenatra/donaciones_organos_tejidos_fines_trasplante/CENATRA_84_Donaciones1erTrimestre2024.csv",
+      "sha256": "85e83a19c7009a0777d2f1e6b06ef5064d00609901f77cbd3ea81407b6d040ed",
+      "bytes": 179730,
+      "row_count": 1161
+    },
+    {
+      "name": "Donaciones_por_muerte_encefálica_y_paro_cardiorrespiratorio_(4to_trimestre_2023).csv",
+      "url": "https://repodatos.atdt.gob.mx/api_update/cenatra/donaciones_organos_tejidos_fines_trasplante/CENATRA_85_Donaciones4toTrimestre2023.csv",
+      "sha256": "fc5a5d8c2e6ca247a7af7f2642b0d16cc48dbfa84c3eabadc0a58dee31512784",
+      "bytes": 188732,
+      "row_count": 1220
+    },
+    {
+      "name": "Donaciones_por_muerte_encefálica_y_paro_cardiorrespiratorio_(3er_trimestre_2023).csv",
+      "url": "https://repodatos.atdt.gob.mx/api_update/cenatra/donaciones_organos_tejidos_fines_trasplante/CENATRA_86_Donaciones3erTrimestre2023.csv",
+      "sha256": "c83faf613895899ac367ee09c7eab3da16ad5cc9352068b88b54d64b497ebcea",
+      "bytes": 201169,
+      "row_count": 1296
+    },
+    {
+      "name": "Donaciones_por_muerte_encefálica_y_paro_cardiorrespiratorio_(2do_trimestre_2023).csv",
+      "url": "https://repodatos.atdt.gob.mx/api_update/cenatra/donaciones_organos_tejidos_fines_trasplante/CENATRA_87_Donaciones2doTrimestre2023.csv",
+      "sha256": "93b1597aa53ef07a9ad85351cf8b38bb0a0e42202a06f5444f302d91fde827d0",
+      "bytes": 184272,
+      "row_count": 1190
+    },
+    {
+      "name": "Donaciones_por_muerte_encefálica_y_paro_cardiorrespiratorio_(1er_trimestre_2023).csv",
+      "url": "https://repodatos.atdt.gob.mx/api_update/cenatra/donaciones_organos_tejidos_fines_trasplante/CENATRA_88_Donaciones1erTrimestre2023.csv",
+      "sha256": "40229a02a5461e40e91c7eae5196c2355b425d95ddaa72ae33e3da1b4d6e2543",
+      "bytes": 173506,
+      "row_count": 1124
+    },
+    {
+      "name": "Donaciones_por_muerte_encefálica_y_paro_cardiorrespiratorio_(4to_trimestre_2022).csv",
+      "url": "https://repodatos.atdt.gob.mx/api_update/cenatra/donaciones_organos_tejidos_fines_trasplante/CENATRA_89_Donaciones4toTrimestre2022.csv",
+      "sha256": "81749f85a32c7d2464b1c0a2115c3c7a2bdc9973138054af8fa005f8eb6bf7bc",
+      "bytes": 166639,
+      "row_count": 1081
+    },
+    {
+      "name": "Donaciones_por_muerte_encefálica_y_paro_cardiorrespiratorio_(3er_trimestre_2022).csv",
+      "url": "https://repodatos.atdt.gob.mx/api_update/cenatra/donaciones_organos_tejidos_fines_trasplante/CENATRA_90_Donaciones3erTrimestre2022.csv",
+      "sha256": "162f3fedb0057c9e92b72ebd270b2d1dfbe46c4d4d72719493fa473326ba368e",
+      "bytes": 163354,
+      "row_count": 1057
+    },
+    {
+      "name": "Donaciones_por_muerte_encefálica_y_paro_cardiorrespiratorio_(2do_trimestre_2022).csv",
+      "url": "https://repodatos.atdt.gob.mx/api_update/cenatra/donaciones_organos_tejidos_fines_trasplante/CENATRA_91_Donaciones2doTrimestre2022.csv",
+      "sha256": "a51d72c8522b63b1eeca3c19440729a5f84759c7886327b0e43bbc64ccba1aff",
+      "bytes": 156281,
+      "row_count": 1020
+    },
+    {
+      "name": "Donaciones_por_muerte_encefálica_y_paro_cardiorrespiratorio_(1er_trimestre_2022).csv",
+      "url": "https://repodatos.atdt.gob.mx/api_update/cenatra/donaciones_organos_tejidos_fines_trasplante/CENATRA_92_Donaciones1erTrimestre2022.csv",
+      "sha256": "21f65c2bd6e71a6883bf5fcb9afae5311cda49f30908421006bd7a17aa48d68b",
+      "bytes": 127442,
+      "row_count": 823
+    },
+    {
+      "name": "Donaciones_por_muerte_encefálica_y_paro_cardiorrespiratorio_(4to_trimestre_2021).csv",
+      "url": "https://repodatos.atdt.gob.mx/api_update/cenatra/donaciones_organos_tejidos_fines_trasplante/CENATRA_93_Donaciones4toTrimestre2021Corregido.csv",
+      "sha256": "2e998eeac236365075fbf44c89cf96ace3b376da7496d6ed4d34d83448cf0406",
+      "bytes": 139944,
+      "row_count": 909
+    },
+    {
+      "name": "Donaciones_por_muerte_encefálica_y_paro_cardiorrespiratorio_(3er_trimestre_2021).csv",
+      "url": "https://repodatos.atdt.gob.mx/api_update/cenatra/donaciones_organos_tejidos_fines_trasplante/CENATRA_94_Donaciones3erTrimestre2021Corregido.csv",
+      "sha256": "a98a3b94484f3f627a73bface15f800e555e87d0e2365e28d48e46834395f34a",
+      "bytes": 120037,
+      "row_count": 778
+    },
+    {
+      "name": "Donaciones_por_muerte_encefálica_y_paro_cardiorrespiratorio_(2do_trimestre_2021).csv",
+      "url": "https://repodatos.atdt.gob.mx/api_update/cenatra/donaciones_organos_tejidos_fines_trasplante/CENATRA_95_Donaciones2doTrimestre2021Corregido.csv",
+      "sha256": "2f6ef08b21f4767979edebb086e047c686c89e0975411cfac1ad6789edfd9d51",
+      "bytes": 105559,
+      "row_count": 688
+    },
+    {
+      "name": "Donaciones_por_muerte_encefálica_y_paro_cardiorrespiratorio_(1er_trimestre_2021).csv",
+      "url": "https://repodatos.atdt.gob.mx/api_update/cenatra/donaciones_organos_tejidos_fines_trasplante/CENATRA_96_Donaciones1erTrimestre2021Corregido.csv",
+      "sha256": "58d46e255e8454969897bb001ecf0923bbc8e83edec2d4324fb6b19b863e1dab",
+      "bytes": 37156,
+      "row_count": 259
+    },
+    {
+      "name": "Donaciones_por_muerte_encefálica_y_paro_cardiorrespiratorio_(4to_trimestre_2020).csv",
+      "url": "https://repodatos.atdt.gob.mx/api_update/cenatra/donaciones_organos_tejidos_fines_trasplante/CENATRA_97_Donaciones4toTrimestre2020.csv",
+      "sha256": "58594a3fa6860401c17818ef761c1d61dba6c5ed14c55584cbd9340a28cc7cf8",
+      "bytes": 33607,
+      "row_count": 240
+    },
+    {
+      "name": "Donaciones_por_muerte_encefálica_y_paro_cardiorrespiratorio_(3er_trimestre_2020).csv",
+      "url": "https://repodatos.atdt.gob.mx/api_update/cenatra/donaciones_organos_tejidos_fines_trasplante/CENATRA_98_Donaciones3erTrimestre2020.csv",
+      "sha256": "b5647f07d328676f6a5020f57d127ebc52ce41b8fa8cea5d969735b707503d7b",
+      "bytes": 7655,
+      "row_count": 51
+    },
+    {
+      "name": "Donaciones_por_muerte_encefálica_y_paro_cardiorrespiratorio_(2do_trimestre_2020).csv",
+      "url": "https://repodatos.atdt.gob.mx/api_update/cenatra/donaciones_organos_tejidos_fines_trasplante/CENATRA_99_Donaciones2doTrimestre2020.csv",
+      "sha256": "c4e1ae7ec40b41e862bf01ce4e5634a21c1aede9cecf23fee4dba4847219358c",
+      "bytes": 553,
+      "row_count": 2
+    },
+    {
+      "name": "Donaciones_por_muerte_encefálica_y_paro_cardiorrespiratorio_(1er_trimestre_2020).csv",
+      "url": "https://repodatos.atdt.gob.mx/api_update/cenatra/donaciones_organos_tejidos_fines_trasplante/CENATRA_100_Donaciones1erTrimestre2020.csv",
+      "sha256": "8afd53313cb315cc1373c3723d91f7913e4ee4002d6be42531fa9b6358702fb7",
+      "bytes": 152479,
+      "row_count": 978
+    }
+  ]
+}

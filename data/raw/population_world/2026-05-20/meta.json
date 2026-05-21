@@ -1,0 +1,15 @@
+{
+  "source": "population_world",
+  "snapshot_date": "2026-05-20",
+  "fetched_at": "2026-05-20T20:16:13Z",
+  "pipeline_version": "0.1.0",
+  "files": [
+    {
+      "name": "sp.pop.totl.json",
+      "url": "https://api.worldbank.org/v2/country/all/indicator/SP.POP.TOTL?format=json&per_page=20000",
+      "sha256": "b870c6621f823788db3ff7f4348b66b2337a4722c9682461a22e9634e7a36bc3",
+      "bytes": 3912775,
+      "row_count": 17556
+    }
+  ]
+}

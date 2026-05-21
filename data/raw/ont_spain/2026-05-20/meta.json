@@ -1,0 +1,162 @@
+{
+  "source": "ont_spain",
+  "snapshot_date": "2026-05-20",
+  "fetched_at": "2026-05-20T19:18:19Z",
+  "pipeline_version": "0.1.0",
+  "files": [
+    {
+      "name": "ont_balance.pdf",
+      "url": "https://www.ont.es/wp-content/uploads/2025/01/BALANCE-ONT-2024-PRENSA-completo.pdf",
+      "sha256": "3b1d7345dd389aa12c02b991ff52049fd47014b90f27ee41711e8cbf6730e455",
+      "bytes": 2686539,
+      "row_count": null
+    },
+    {
+      "name": "page_007_table_1.csv",
+      "url": "https://www.ont.es/wp-content/uploads/2025/01/BALANCE-ONT-2024-PRENSA-completo.pdf",
+      "sha256": "a50c9901bf9af649034c17b81e2ec96acbef2911429439d4aa00eb3af7ffe99e",
+      "bytes": 768,
+      "row_count": 22
+    },
+    {
+      "name": "page_009_table_2.csv",
+      "url": "https://www.ont.es/wp-content/uploads/2025/01/BALANCE-ONT-2024-PRENSA-completo.pdf",
+      "sha256": "ea871aedea540ec63babdaa5fddcc27de61f944034732d1067921fcccc2e5866",
+      "bytes": 312,
+      "row_count": 65
+    },
+    {
+      "name": "page_009_table_3.csv",
+      "url": "https://www.ont.es/wp-content/uploads/2025/01/BALANCE-ONT-2024-PRENSA-completo.pdf",
+      "sha256": "e3afe36d590b066372cc5490ca6eead0e3ac2aa7fdc88487e9a8f89eb38953de",
+      "bytes": 189,
+      "row_count": 37
+    },
+    {
+      "name": "page_013_table_3.csv",
+      "url": "https://www.ont.es/wp-content/uploads/2025/01/BALANCE-ONT-2024-PRENSA-completo.pdf",
+      "sha256": "b43ebb1bac0c4cba7b234eb3994ec9a3d0d3ab4af9a0afdd98d68012a10f8bbf",
+      "bytes": 774,
+      "row_count": 101
+    },
+    {
+      "name": "page_014_table_2.csv",
+      "url": "https://www.ont.es/wp-content/uploads/2025/01/BALANCE-ONT-2024-PRENSA-completo.pdf",
+      "sha256": "ab13011547c22d89de3313a52f36244b3456fb8d87b5b22c16c135b6c4115817",
+      "bytes": 523,
+      "row_count": 19
+    },
+    {
+      "name": "page_015_table_2.csv",
+      "url": "https://www.ont.es/wp-content/uploads/2025/01/BALANCE-ONT-2024-PRENSA-completo.pdf",
+      "sha256": "98c03f1883014b1b99576f231f933b199cd2fcb5d686c4c40d279466983f6909",
+      "bytes": 101,
+      "row_count": 5
+    },
+    {
+      "name": "page_015_table_4.csv",
+      "url": "https://www.ont.es/wp-content/uploads/2025/01/BALANCE-ONT-2024-PRENSA-completo.pdf",
+      "sha256": "f342102a1fe5e4b53e34c04f14e07af14a08924119a35bf98607c8a1568d3cb4",
+      "bytes": 189,
+      "row_count": 5
+    },
+    {
+      "name": "page_018_table_3.csv",
+      "url": "https://www.ont.es/wp-content/uploads/2025/01/BALANCE-ONT-2024-PRENSA-completo.pdf",
+      "sha256": "2088fb05b4d7d752b1fed7ea586ed29392bef19dba2d343c8ec9f8320946a7c9",
+      "bytes": 145,
+      "row_count": 12
+    },
+    {
+      "name": "page_022_table_2.csv",
+      "url": "https://www.ont.es/wp-content/uploads/2025/01/BALANCE-ONT-2024-PRENSA-completo.pdf",
+      "sha256": "e1f9c5a2c2973a3f4f42a8664a20b6feedc0cc0060d60221d0aa52f46ffcbe92",
+      "bytes": 1367,
+      "row_count": 7
+    },
+    {
+      "name": "page_026_table_2.csv",
+      "url": "https://www.ont.es/wp-content/uploads/2025/01/BALANCE-ONT-2024-PRENSA-completo.pdf",
+      "sha256": "3afe12362551fa8fa07c7451c14ae4e29e82b58e91fb7ce408e4e3a99fd19806",
+      "bytes": 159,
+      "row_count": 7
+    },
+    {
+      "name": "page_030_table_2.csv",
+      "url": "https://www.ont.es/wp-content/uploads/2025/01/BALANCE-ONT-2024-PRENSA-completo.pdf",
+      "sha256": "f528d0924d03fc41534799f7d3d1bab5710efeede9f654a93ed403a7e73e9677",
+      "bytes": 1560,
+      "row_count": 40
+    },
+    {
+      "name": "page_031_table_2.csv",
+      "url": "https://www.ont.es/wp-content/uploads/2025/01/BALANCE-ONT-2024-PRENSA-completo.pdf",
+      "sha256": "19207c5316e610caf116c72a788eeef450a8cc6ccfbfa2fd0cda09d4b3e0b651",
+      "bytes": 765,
+      "row_count": 22
+    },
+    {
+      "name": "page_033_table_2.csv",
+      "url": "https://www.ont.es/wp-content/uploads/2025/01/BALANCE-ONT-2024-PRENSA-completo.pdf",
+      "sha256": "aee63abab8682471b9affe93230b185faac908ee5b1508595e77a213c8c8c723",
+      "bytes": 987,
+      "row_count": 57
+    },
+    {
+      "name": "page_034_table_2.csv",
+      "url": "https://www.ont.es/wp-content/uploads/2025/01/BALANCE-ONT-2024-PRENSA-completo.pdf",
+      "sha256": "cc96c00fab55f5529b1f84e74ec24d33fe816f3a11014c92c4da2dd31f0a73b9",
+      "bytes": 657,
+      "row_count": 20
+    },
+    {
+      "name": "page_035_table_2.csv",
+      "url": "https://www.ont.es/wp-content/uploads/2025/01/BALANCE-ONT-2024-PRENSA-completo.pdf",
+      "sha256": "dfa3788d529fd4a7d19ad12accb919becda5f875b78b2145d14ec5351a60047a",
+      "bytes": 1925,
+      "row_count": 49
+    },
+    {
+      "name": "page_036_table_2.csv",
+      "url": "https://www.ont.es/wp-content/uploads/2025/01/BALANCE-ONT-2024-PRENSA-completo.pdf",
+      "sha256": "27d123570c82fc976087c2d11067fcfa22b519ea6e827fbc6bd9a0dc6b1a3383",
+      "bytes": 577,
+      "row_count": 18
+    },
+    {
+      "name": "page_037_table_2.csv",
+      "url": "https://www.ont.es/wp-content/uploads/2025/01/BALANCE-ONT-2024-PRENSA-completo.pdf",
+      "sha256": "47d9af73bc698c2b4d42c83de724288886650602a574c73bd4447ee711aab679",
+      "bytes": 1266,
+      "row_count": 28
+    },
+    {
+      "name": "page_038_table_2.csv",
+      "url": "https://www.ont.es/wp-content/uploads/2025/01/BALANCE-ONT-2024-PRENSA-completo.pdf",
+      "sha256": "bada8917541876c9717d5e9886b01a2fa8d0360b662224571da8462cb574360b",
+      "bytes": 462,
+      "row_count": 15
+    },
+    {
+      "name": "page_039_table_2.csv",
+      "url": "https://www.ont.es/wp-content/uploads/2025/01/BALANCE-ONT-2024-PRENSA-completo.pdf",
+      "sha256": "e18d28b49004c9bf9f376173b8c6c5453531df17bde717e2b63e1e1709d4f443",
+      "bytes": 863,
+      "row_count": 55
+    },
+    {
+      "name": "page_040_table_2.csv",
+      "url": "https://www.ont.es/wp-content/uploads/2025/01/BALANCE-ONT-2024-PRENSA-completo.pdf",
+      "sha256": "7bf001f909c7df8d653f495d1b7d6312311ffa33831fde00e38316ed69ffb7ae",
+      "bytes": 917,
+      "row_count": 49
+    },
+    {
+      "name": "page_041_table_2.csv",
+      "url": "https://www.ont.es/wp-content/uploads/2025/01/BALANCE-ONT-2024-PRENSA-completo.pdf",
+      "sha256": "4cf20020ea20364228c512f8321d3cbc2a245b2046ff844624d5da625ff80736",
+      "bytes": 204,
+      "row_count": 14
+    }
+  ]
+}

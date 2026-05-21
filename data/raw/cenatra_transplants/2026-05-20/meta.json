@@ -1,0 +1,162 @@
+{
+  "source": "cenatra_transplants",
+  "snapshot_date": "2026-05-20",
+  "fetched_at": "2026-05-21T03:38:02Z",
+  "pipeline_version": "0.1.0",
+  "files": [
+    {
+      "name": "Trasplantes_de_origen_cadavérico_y_vivo_(4to_trimestre_2025).csv",
+      "url": "https://repodatos.atdt.gob.mx/api_update/cenatra/trasplantes_organos_tejidos/trasplantes_4toTrimestre2025.csv",
+      "sha256": "36a2f87f69137806275f68589c2ab99f7f14c886c42db7cbb0dde99c7e0d559f",
+      "bytes": 397449,
+      "row_count": 1619
+    },
+    {
+      "name": "Trasplantes_de_origen_cadavérico_y_vivo_(1er_trimestre_2025).csv",
+      "url": "https://repodatos.atdt.gob.mx/api_update/cenatra/trasplantes_organos_tejidos/CENATRA_30_Trasplantes1erTrimestre2025.csv",
+      "sha256": "9cfdfea44f1e2e41610745666d8725f5a4a0b8a16e45dc79b6372f72566739e4",
+      "bytes": 362864,
+      "row_count": 1578
+    },
+    {
+      "name": "Trasplantes_de_origen_cadavérico_y_vivo_(4to_trimestre_2024).csv",
+      "url": "https://repodatos.atdt.gob.mx/api_update/cenatra/trasplantes_organos_tejidos/CENATRA_31_Trasplantes4toTrimestre2024.csv",
+      "sha256": "fa0dc429a66c3ddd69caa2e7abe2a1d81cf065314bc8bf613e8fc2229734fca8",
+      "bytes": 353316,
+      "row_count": 1525
+    },
+    {
+      "name": "Trasplantes_de_origen_cadavérico_y_vivo_(3er_trimestre_2024).csv",
+      "url": "https://repodatos.atdt.gob.mx/api_update/cenatra/trasplantes_organos_tejidos/CENATRA_32_Trasplantes3erTrimestre2024.csv",
+      "sha256": "2fb6b8131082a5110ce8081585d87014d1e4a3b3cc78a6ae7e44f110ccbc9bd6",
+      "bytes": 378299,
+      "row_count": 1657
+    },
+    {
+      "name": "Trasplantes_de_origen_cadavérico_y_vivo_(2do_trimestre_2024).csv",
+      "url": "https://repodatos.atdt.gob.mx/api_update/cenatra/trasplantes_organos_tejidos/CENATRA_33_Trasplantes2doTrimestre2024.csv",
+      "sha256": "c89eaa1f64abebf6fa128b1c0a737d363aee19fc6141db3da03476bd250b23b1",
+      "bytes": 380808,
+      "row_count": 1691
+    },
+    {
+      "name": "Trasplantes_de_origen_cadavérico_y_vivo_(1er_trimestre_2024).csv",
+      "url": "https://repodatos.atdt.gob.mx/api_update/cenatra/trasplantes_organos_tejidos/CENATRA_34_Trasplantes1erTrimestre2024.csv",
+      "sha256": "7ed06845dfbf05957a8507b7dbf70c24ef23e107de7d7bd417cfb00f086fa0c2",
+      "bytes": 407655,
+      "row_count": 1470
+    },
+    {
+      "name": "Trasplantes_de_origen_cadavérico_y_vivo_(4to_trimestre_2023).csv",
+      "url": "https://repodatos.atdt.gob.mx/api_update/cenatra/trasplantes_organos_tejidos/CENATRA_35_Trasplantes4toTrimesstre2023.csv",
+      "sha256": "a67e25b89ee58bdd76cd6cbceae6ec0071a79f8870c40e204896692dbdd5f83c",
+      "bytes": 391898,
+      "row_count": 1729
+    },
+    {
+      "name": "Trasplantes_de_origen_cadavérico_y_vivo_(3er_trimestre_2023).csv",
+      "url": "https://repodatos.atdt.gob.mx/api_update/cenatra/trasplantes_organos_tejidos/CENATRA_36_Trasplantes3erTrimestre2023.csv",
+      "sha256": "e760d687be5274b175ac3c83644297dbd2a1f7a2398e8e865bbb62a77c5df4ef",
+      "bytes": 390144,
+      "row_count": 1733
+    },
+    {
+      "name": "Trasplantes_de_origen_cadavérico_y_vivo_(2do_trimestre_2023).csv",
+      "url": "https://repodatos.atdt.gob.mx/api_update/cenatra/trasplantes_organos_tejidos/CENATRA_37_Trasplantes2doTrimestre2023.csv",
+      "sha256": "30978cc67a0e2e99171224f8beab5fef2e00c31591dfa4d7e22257f2f92ffcfa",
+      "bytes": 394072,
+      "row_count": 1744
+    },
+    {
+      "name": "Trasplantes_de_origen_cadavérico_y_vivo_(1er_trimestre_2023).csv",
+      "url": "https://repodatos.atdt.gob.mx/api_update/cenatra/trasplantes_organos_tejidos/CENATRA_38_Trasplantes1erTrimestre2023.csv",
+      "sha256": "c3930e4cf7dec79f2d6b9e6ece83b197f97508d15d90e066a6b277b8874f57c1",
+      "bytes": 363597,
+      "row_count": 1607
+    },
+    {
+      "name": "Trasplantes_de_origen_cadavérico_y_vivo_(4to_trimestre_2022).csv",
+      "url": "https://repodatos.atdt.gob.mx/api_update/cenatra/trasplantes_organos_tejidos/CENATRA_39_Trasplantes4toTrimestre2022.csv",
+      "sha256": "3203e5733597765c6cdc91b516211f7499c95afef296639ec29aeab7528d0933",
+      "bytes": 365660,
+      "row_count": 1622
+    },
+    {
+      "name": "Trasplantes_de_origen_cadavérico_y_vivo_(3er_trimestre_2022).csv",
+      "url": "https://repodatos.atdt.gob.mx/api_update/cenatra/trasplantes_organos_tejidos/CENATRA_40_Trasplantes3erTrimestre2022.csv",
+      "sha256": "ab5725d51b583b5e5a3ffefa207644468b4c3ba45482646e9da2f6e268b27aac",
+      "bytes": 441572,
+      "row_count": 1576
+    },
+    {
+      "name": "Trasplantes_de_origen_cadavérico_y_vivo_(2do_trimestre_2022).csv",
+      "url": "https://repodatos.atdt.gob.mx/api_update/cenatra/trasplantes_organos_tejidos/CENATRA_41_Trasplantes2doTrimestre2022.csv",
+      "sha256": "0a3389e96b87de00163688f2b0a3df2e6b20f46deb24d4fcf2a523a4825ec365",
+      "bytes": 363072,
+      "row_count": 1606
+    },
+    {
+      "name": "Trasplantes_de_origen_cadavérico_y_vivo_(1er_trimestre_2022).csv",
+      "url": "https://repodatos.atdt.gob.mx/api_update/cenatra/trasplantes_organos_tejidos/CENATRA_42_Trasplantes1erTrimestre2022.csv",
+      "sha256": "04d8b9a05f1f3682690954c9f3735cce2b3e49e8822c0c84834f8856d13d0477",
+      "bytes": 274053,
+      "row_count": 1208
+    },
+    {
+      "name": "Trasplantes_de_origen_cadavérico_y_vivo_(4to_trimestre_2021).csv",
+      "url": "https://repodatos.atdt.gob.mx/api_update/cenatra/trasplantes_organos_tejidos/CENATRA_43_Trasplantes4toTrimestre2021.csv",
+      "sha256": "dcd15f66f7c0313b45f63e61f317b12d173b2cd4301429e8325c4500d544775c",
+      "bytes": 310816,
+      "row_count": 1377
+    },
+    {
+      "name": "Trasplantes_de_origen_cadavérico_y_vivo_(3er_trimestre_2021).csv",
+      "url": "https://repodatos.atdt.gob.mx/api_update/cenatra/trasplantes_organos_tejidos/CENATRA_44_Trasplantes3erTrimestre2021.csv",
+      "sha256": "960a658af318d3c5a6c83003ab2808dbde60086a4d0dafbaf0c313d965189a4c",
+      "bytes": 290513,
+      "row_count": 1283
+    },
+    {
+      "name": "Trasplantes_de_origen_cadavérico_y_vivo_(2do_trimestre_2021).csv",
+      "url": "https://repodatos.atdt.gob.mx/api_update/cenatra/trasplantes_organos_tejidos/CENATRA_45_Trasplantes2doTrimestre2021.csv",
+      "sha256": "69561e6cba4cd9ad279011466982b9f6bb5fea29d8caf9a318e8288754c00642",
+      "bytes": 270738,
+      "row_count": 1207
+    },
+    {
+      "name": "Trasplantes_de_origen_cadavérico_y_vivo_(1er_trimestre_2021).csv",
+      "url": "https://repodatos.atdt.gob.mx/api_update/cenatra/trasplantes_organos_tejidos/CENATRA_46_Trasplantes1erTrimestre2021.csv",
+      "sha256": "1fd9bcd0cd1b7250c73c25dbe550efd9d22310a07e42ccd34f93eb7954e43e6e",
+      "bytes": 112384,
+      "row_count": 508
+    },
+    {
+      "name": "Trasplantes_de_origen_cadavérico_y_vivo_(4to_trimestre_2020).csv",
+      "url": "https://repodatos.atdt.gob.mx/api_update/cenatra/trasplantes_organos_tejidos/CENATRA_47_Trasplantes4toTrimestre2020.csv",
+      "sha256": "185b44e2e53972f94bf492fba9d5c3342fc38cb52552020b1ac10db32a17792c",
+      "bytes": 117217,
+      "row_count": 528
+    },
+    {
+      "name": "Trasplantes_de_origen_cadavérico_y_vivo_(3er_trimestre_2020).csv",
+      "url": "https://repodatos.atdt.gob.mx/api_update/cenatra/trasplantes_organos_tejidos/CENATRA_48_Trasplantes3erTrimestre2020.csv",
+      "sha256": "f0a273415b6664b63ed02bc12bdcd081488fdbb42c7d19a357ed37cde5934c85",
+      "bytes": 41316,
+      "row_count": 179
+    },
+    {
+      "name": "Trasplantes_de_origen_cadavérico_y_vivo_(2do_trimestre_2020).csv",
+      "url": "https://repodatos.atdt.gob.mx/api_update/cenatra/trasplantes_organos_tejidos/CENATRA_49_Trasplantes2doTrimestre2020.csv",
+      "sha256": "c7baa8bc0ba0c49c0bf363f75031fd9106211691be7e9bf2edd4920d61aa914d",
+      "bytes": 9801,
+      "row_count": 42
+    },
+    {
+      "name": "Trasplantes_de_origen_cadavérico_y_vivo_(1er_trimestre_2020).csv",
+      "url": "https://repodatos.atdt.gob.mx/api_update/cenatra/trasplantes_organos_tejidos/CENATRA_50_Trasplantes1erTrimestre2020.csv",
+      "sha256": "c9df20138324125d07613c0bf07d67bd9b1b7b15d1630797667e0238d0db0ceb",
+      "bytes": 332144,
+      "row_count": 1491
+    }
+  ]
+}
