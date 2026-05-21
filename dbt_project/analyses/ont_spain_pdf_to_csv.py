@@ -57,6 +57,24 @@ def _first_line(text: str) -> str:
     return text.split("\n")[0].split("\r")[0]
 
 
+def _total_line(text: str) -> str:
+    """Extract the transplant total from a 'Total del Estado' cell.
+
+    Most organ tables have simple single-line values or two-line cells where the
+    first line is the total and the second is a parenthetical sub-count (e.g. lung:
+    '623\n(557)' means 623 total, 557 from deceased donors).
+
+    The intestine table is the exception: pdfplumber merges the Int.A sub-row, the MV
+    sub-row, and sometimes a grand-total row into one cell. When 3+ non-empty lines are
+    present the last line is the grand total ('1\n6\n7' -> 7). When only 2 lines are
+    present the first line is still the total ('4\n4', '5\n5').
+    """
+    lines = [ln.strip() for ln in text.replace("\r", "\n").split("\n") if ln.strip()]
+    if len(lines) >= 3:
+        return lines[-1]
+    return lines[0] if lines else ""
+
+
 def _parse_int(val: str) -> int | None:
     """Parse integers in Spanish format: '2.346' -> 2346. Ignores parenthetical annotations."""
     cleaned = re.sub(r"[\s.,]", "", _first_line(val).strip())
@@ -131,7 +149,7 @@ def _extract_organ(rows: list[list[str]]) -> tuple[dict[int, int], dict[int, int
         if "total" in label and "estado" in label:
             for col_idx, yr in year_cols.items():
                 if col_idx < len(row):
-                    val = _parse_int(row[col_idx])
+                    val = _parse_int(_total_line(row[col_idx]))
                     if val is not None and val > 0:
                         totals[yr] = val
 

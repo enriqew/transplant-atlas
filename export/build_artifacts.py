@@ -48,6 +48,11 @@ MX_STATE_CODES = {
     "YUC", "ZAC",
 }
 
+# Natural Earth still labels CDMX as "MX-DIF" (Distrito Federal, the pre-2016 name).
+# Remap to CMX so the TopoJSON state_code matches the CENATRA/INEGI data layer.
+_NE_CODE_REMAP = {"DIF": "CMX"}
+_NE_NAME_REMAP = {"Distrito Federal": "Ciudad de México"}
+
 
 def _configure_logging() -> logging.Logger:
     logging.basicConfig(
@@ -217,15 +222,17 @@ def _build_mexico_topojson(log: logging.Logger) -> tuple[dict, Path]:
         if not iso_full.startswith("MX-"):
             continue
         code = iso_full.split("-", 1)[1]
+        code = _NE_CODE_REMAP.get(code, code)
         if code not in MX_STATE_CODES:
             continue
+        raw_name = props.get("name") or code
         mexico_features.append(
             {
                 "type": feature["type"],
                 "geometry": feature["geometry"],
                 "properties": {
                     "state_code": code,
-                    "state_name": props.get("name") or code,
+                    "state_name": _NE_NAME_REMAP.get(raw_name, raw_name),
                 },
             }
         )
