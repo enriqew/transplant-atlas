@@ -41,3 +41,4 @@ INNER JOIN {{ ref('country_iso') }} AS country
     ON UPPER(country.country_name) = UPPER(raw.country_name_raw)
 WHERE raw.report_year BETWEEN 1990 AND EXTRACT(YEAR FROM CURRENT_DATE)
   AND raw.total_transplants IS NOT NULL
+  AND raw.total_transplants > 0   -- IRODaT uses 0 for missing/unreported years, not genuine zero counts
