@@ -18,5 +18,5 @@
    DuckDB's `filename=true` option on read_csv_auto. #}
 
 {% macro snapshot_date_from_filename(filename_col) %}
-  regexp_extract({{ filename_col }}, '/(\d{4}-\d{2}-\d{2})/', 1)
+  regexp_extract(replace({{ filename_col }}, chr(92), '/'), '/(\d{4}-\d{2}-\d{2})/', 1)
 {% endmacro %}
