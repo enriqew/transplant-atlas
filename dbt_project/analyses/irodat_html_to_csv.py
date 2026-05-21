@@ -13,8 +13,8 @@ We target two of them by heading text:
 Total transplants = sum of all organ NUM columns across both DECEASED and LIVING rows.
 
 Failure modes:
-  - No HTML files found in the latest snapshot → exit non-zero
-  - A specific HTML cannot be parsed → log warning, skip that country; never fabricate.
+  - No HTML files found in the latest snapshot -> exit non-zero
+  - A specific HTML cannot be parsed -> log warning, skip that country; never fabricate.
 """
 
 from __future__ import annotations
@@ -243,7 +243,7 @@ def main() -> int:
             )
             written += 1
 
-    print(f"wrote {written} rows → {out_path}")
+    print(f"wrote {written} rows -> {out_path}")
     return 0 if written else 1
 
 
