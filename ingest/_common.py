@@ -118,10 +118,24 @@ def sha256_of(path: Path) -> str:
     return digest.hexdigest()
 
 
-def http_get(url: str, *, timeout: int = HTTP_TIMEOUT_SECONDS) -> requests.Response:
-    """GET with our UA, no retries (failures must surface)."""
+def http_get(
+    url: str,
+    *,
+    timeout: int = HTTP_TIMEOUT_SECONDS,
+    verify: str | bool | None = None,
+) -> requests.Response:
+    """GET with our UA, no retries (failures must surface).
 
-    response = requests.get(url, headers={"User-Agent": USER_AGENT}, timeout=timeout)
+    `verify` is forwarded to requests. Pass a path to a custom CA bundle for
+    sources whose servers omit their intermediate cert from the TLS handshake.
+    """
+
+    response = requests.get(
+        url,
+        headers={"User-Agent": USER_AGENT},
+        timeout=timeout,
+        verify=True if verify is None else verify,
+    )
     response.raise_for_status()
     return response
 

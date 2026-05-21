@@ -28,3 +28,27 @@ To verify locally:
 ```bash
 openssl x509 -in ingest/certs/fnmt_accomp.pem -noout -fingerprint -sha256 -subject -issuer
 ```
+
+## `letsencrypt_e8.pem` — Let's Encrypt E8 intermediate
+
+Used by `ingest/_ckan.py`. The Mexican government open-data portal
+(`www.datos.gob.mx`) presents a cert issued by Let's Encrypt E8 but omits
+the intermediate from the TLS handshake, causing `SSLCertVerificationError`
+in Python. E8 is cross-signed by ISRG Root X1 (Mozilla/certifi-trusted root),
+so adding E8 to the bundle closes the chain.
+
+| Property | Value |
+|---|---|
+| Subject | `CN=E8, O=Let's Encrypt, C=US` |
+| Issuer | `CN=ISRG Root X1, O=Internet Security Research Group, C=US` |
+| Valid until | 2027-03-12 |
+| SHA-256 fingerprint | `83:62:4F:D3:38:C8:D9:B0:23:C1:8A:67:CB:7A:9C:05:19:DA:43:D1:17:75:B4:C6:CB:DA:D4:5C:3D:99:7C:52` |
+| Origin | Downloaded from `http://e8.i.lencr.org/` (the AIA issuer URL advertised in datos.gob.mx leaf cert) |
+
+Anyone updating this file MUST verify the fingerprint matches above.
+
+To verify locally:
+
+```bash
+openssl x509 -in ingest/certs/letsencrypt_e8.pem -noout -fingerprint -sha256 -subject -issuer
+```

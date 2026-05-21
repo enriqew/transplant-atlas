@@ -3,12 +3,18 @@
 The Mexican government open-data portal exposes a CKAN-compatible API at
 https://www.datos.gob.mx/api/3/action/. We use it to discover the current CSV resources
 for each CENATRA dataset without hard-coding URLs that rotate when CENATRA reissues a file.
+
+TLS note: datos.gob.mx presents a Let's Encrypt E8 cert but omits the E8 intermediate
+from the TLS handshake, causing SSLCertVerificationError in Python. We work around this
+by injecting the E8 intermediate (ingest/certs/letsencrypt_e8.pem) into a combined CA
+bundle passed to every request. Certificate verification is NOT disabled.
 """
 
 from __future__ import annotations
 
 import argparse
 from dataclasses import dataclass
+from pathlib import Path
 
 from ingest._common import (
     FileRecord,
@@ -17,6 +23,7 @@ from ingest._common import (
     configure_logging,
     count_csv_rows,
     ensure_snapshot_dir,
+    extended_ca_bundle,
     fail,
     http_get,
     pipeline_version,
@@ -27,6 +34,18 @@ from ingest._common import (
 )
 
 CKAN_BASE = "https://www.datos.gob.mx/api/3/action"
+
+_E8_CERT = Path(__file__).resolve().parent / "certs" / "letsencrypt_e8.pem"
+
+
+def _ca_bundle() -> str:
+    """Return path to a CA bundle that includes the Let's Encrypt E8 intermediate."""
+    if not _E8_CERT.exists():
+        raise FileNotFoundError(
+            f"missing Let's Encrypt E8 intermediate cert at {_E8_CERT}; "
+            "see ingest/certs/README.md for provenance"
+        )
+    return str(extended_ca_bundle([_E8_CERT]))
 
 
 @dataclass
@@ -46,7 +65,7 @@ def list_dataset_resources(dataset_slug: str) -> list[CkanResource]:
     Raises requests.HTTPError on any non-2xx response.
     """
 
-    response = http_get(f"{CKAN_BASE}/package_show?id={dataset_slug}")
+    response = http_get(f"{CKAN_BASE}/package_show?id={dataset_slug}", verify=_ca_bundle())
     payload = response.json()
     if not payload.get("success"):
         raise RuntimeError(f"CKAN reported failure for dataset {dataset_slug}: {payload}")
@@ -135,7 +154,7 @@ def ingest_ckan_csv_dataset(
         dest = target / safe_name
         log.info("downloading %s → %s", resource.url, dest.name)
         try:
-            bytes_written = stream_to_file(resource.url, dest)
+            bytes_written = stream_to_file(resource.url, dest, verify=_ca_bundle())
         except Exception as exc:  # noqa: BLE001
             fail(f"download failed for {resource.url}: {exc!r}", log=log)
 
