@@ -4,11 +4,11 @@
 
 The pipeline runs locally or on GitHub Actions free tier. It depends on no always-on infrastructure. The output artifacts (≤500 KB JSON, ≤60 KB TopoJSON) are committed to this repo and also published as workflow artifacts on every refresh.
 
-A downstream agent (out of scope here) consumes those artifacts and renders an interactive map. See [the output contract](#output-contract).
+A separate frontend (out of scope here) consumes those artifacts and renders an interactive map. See [the output contract](#output-contract).
 
 ## Status
 
-Initial scaffolding complete. First end-to-end refresh pending — see commit history for current coverage. The authoritative spec is [`transplant-atlas-prompt.md`](./transplant-atlas-prompt.md); this README is the user-facing summary.
+End-to-end pipeline in place: IRODaT covers 116 countries across 1993–2025, alongside CENATRA, GODT, ONT, Eurotransplant and Scandiatransplant. See the commit history for current coverage.
 
 ## Architecture
 
