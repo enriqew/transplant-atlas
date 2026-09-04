@@ -1,5 +1,7 @@
 # transplant-atlas
 
+**Live demo:** [eredonda.com/projects/transplant-atlas](https://eredonda.com/projects/transplant-atlas?utm_source=github&utm_medium=referral)
+
 > Offline data pipeline that ingests Mexican (CENATRA) and global (GODT / IRODaT) organ donation and transplantation statistics, normalizes them, computes per-million-population rates, and emits compact JSON / TopoJSON artifacts intended for static-site consumption.
 
 The pipeline runs locally or on GitHub Actions free tier. It depends on no always-on infrastructure. The output artifacts (≤500 KB JSON, ≤60 KB TopoJSON) are committed to this repo and also published as workflow artifacts on every refresh.
@@ -8,7 +10,7 @@ A separate frontend (out of scope here) consumes those artifacts and renders an 
 
 ## Status
 
-End-to-end pipeline in place: IRODaT covers 116 countries across 1993–2025, alongside CENATRA, GODT, ONT, Eurotransplant and Scandiatransplant. See the commit history for current coverage.
+End-to-end pipeline in place. The IRODaT scrape reaches 116 countries across 1993-2025; after the joins and the source-precedence resolution, the published artifact covers **104 countries in 1,947 rows** (IRODaT 1,736, Scandiatransplant 136, Eurotransplant 70, ONT 5). Where two registries report the same country and year, precedence is GODT, then ONT, then Eurotransplant, then Scandiatransplant, then IRODaT.
 
 ## Architecture
 
@@ -46,6 +48,9 @@ ARTIFACTS — data/exports/  (mexico-transplants.json, world-transplants.json,
 | `population_world` | Bronze JSON | World Bank `SP.POP.TOTL` |
 | `godt_world` | Bronze PDF → CSVs | GODT global report; `pdfplumber==0.11.4` pinned |
 | `irodat` | Bronze HTML → CSV | scrape of https://www.irodat.org/?p=database |
+| `ont_spain` | Bronze | Organizacion Nacional de Trasplantes (Spain) |
+| `eurotransplant` | Bronze | Eurotransplant member states, plus North Italy Transplant |
+| `scandiatransplant` | Bronze | Scandiatransplant member countries |
 | `mexico_boundaries` | Bronze ZIP | Natural Earth admin-1, filtered to Mexico in export step |
 
 The full Spanish-to-English organ mapping and ISO 3166-2:MX state codes live in `dbt_project/seeds/`.
@@ -92,7 +97,8 @@ For field-level rules (when to use `null`, ISO patterns, organ enum), see the [s
 ## Caveats
 
 - **CENATRA reports by establishment, not patient residence.** A transplant performed in Mexico City for a patient who travelled from Oaxaca is counted under Mexico City. State-level rates therefore reflect *capacity*, not *need*.
-- **GODT depends on voluntary country reporting.** Coverage of low-income countries is thin and inconsistent year over year. Missing country-years are emitted as absence, never as `0`.
+- **GODT currently contributes zero rows.** It sits at the top of the precedence hierarchy and is wired end to end, but `pdfplumber` only recovers the WHO regional aggregates from the report PDF, not the per-country tables. Rather than emit numbers that cannot be attributed to a country, `stg_godt_world.sql` returns an empty result on purpose. Recovering the per-country tables is the open problem; see the model for the detail.
+- **GODT also depends on voluntary country reporting.** Even once extraction works, coverage of low-income countries is thin and inconsistent year over year. Missing country-years are emitted as absence, never as `0`.
 - **CONAPO projections vs INEGI census.** Years between census years use CONAPO interpolation; the 2020 census reset the baseline.
 
 ## Privacy
@@ -117,6 +123,7 @@ Source code is MIT (see [LICENSE](./LICENSE)). Upstream data retains its own ter
 | INEGI / CONAPO population projections | Public statistics, attribution required |
 | GODT global report (PDF) | © GODT — fair-use snapshot only; do not redistribute the raw PDF |
 | IRODaT registry | © IRODaT — attribution required; aggregated rows only |
+| ONT (Spain), Eurotransplant, Scandiatransplant | No explicit reuse terms published; treated as cited aggregates pending clarification |
 | Natural Earth boundaries | Public domain (https://www.naturalearthdata.com/about/terms-of-use/) |
 
 ## License

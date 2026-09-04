@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://github.com/enriqew/transplant-atlas/schemas/world-transplants.schema.json",
   "title": "World transplants",
-  "description": "One record per (country, year). Source: GODT preferred, else IRODaT.",
+  "description": "One record per (country, year). Source precedence: GODT, then ONT, then Eurotransplant, then Scandiatransplant, then IRODaT.",
   "type": "array",
   "items": {
     "type": "object",

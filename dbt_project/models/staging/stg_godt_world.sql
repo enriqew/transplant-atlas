@@ -14,7 +14,7 @@
 -- Until a better extractor lands (pdftotext + custom parsing, or an upstream
 -- machine-readable feed from GODT), this model returns the contract schema
 -- with zero rows so downstream marts compile. IRODaT covers world data for
--- the meantime. See README.md "Caveats" + the blog post for context.
+-- the meantime. See README.md "Caveats" for context.
 
 SELECT
     CAST(NULL AS VARCHAR)  AS country_iso3,
