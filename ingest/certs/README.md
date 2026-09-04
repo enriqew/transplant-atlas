@@ -4,7 +4,7 @@ This directory holds intermediate CA certificates that some upstream sources rel
 but fail to send during their TLS handshake. We bundle them here so the ingest scripts
 can construct a complete trust chain without disabling certificate verification.
 
-## `fnmt_accomp.pem` — FNMT-RCM "AC Componentes Informáticos"
+## `fnmt_accomp.pem`: FNMT-RCM "AC Componentes Informáticos"
 
 Used by `ingest/godt_world.py`. The GODT site (`www.transplant-observatory.org`,
 served by Spain's ONT) presents a cert issued by this FNMT-RCM intermediate but
@@ -29,7 +29,7 @@ To verify locally:
 openssl x509 -in ingest/certs/fnmt_accomp.pem -noout -fingerprint -sha256 -subject -issuer
 ```
 
-## `letsencrypt_e8.pem` — Let's Encrypt E8 intermediate
+## `letsencrypt_e8.pem`: Let's Encrypt E8 intermediate
 
 Used by `ingest/_ckan.py`. The Mexican government open-data portal
 (`www.datos.gob.mx`) presents a cert issued by Let's Encrypt E8 but omits

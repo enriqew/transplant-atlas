@@ -20,16 +20,16 @@ DuckDB + dbt-duckdb + Python. Medallion layout, fully offline:
 Official URLs
     │
     ▼  ingest/  (Python)
-BRONZE — data/raw/{source}/{YYYY-MM-DD}/  (immutable + SHA256 + meta.json)
+BRONZE, data/raw/{source}/{YYYY-MM-DD}/  (immutable + SHA256 + meta.json)
     │
     ▼  dbt models/staging/
-SILVER — DuckDB stg_*  (typed, ISO-normalized, English-only, tested)
+SILVER, DuckDB stg_*  (typed, ISO-normalized, English-only, tested)
     │
     ▼  dbt models/marts/
-GOLD — DuckDB fct_* / dim_*  (pre-computed pmp rates)
+GOLD, DuckDB fct_* / dim_*  (pre-computed pmp rates)
     │
     ▼  export/build_artifacts.py
-ARTIFACTS — data/exports/  (mexico-transplants.json, world-transplants.json,
+ARTIFACTS, data/exports/  (mexico-transplants.json, world-transplants.json,
                             mexico-states.topojson, meta.json)
 ```
 
@@ -85,12 +85,12 @@ duckdb data/duckdb/atlas.duckdb
 
 ## Output contract
 
-Four artifacts under `data/exports/`. Schemas under `schemas/` (draft 2020-12) are authoritative — `export/build_artifacts.py` validates against them at write time.
+Four artifacts under `data/exports/`. Schemas under `schemas/` (draft 2020-12) are authoritative, `export/build_artifacts.py` validates against them at write time.
 
-- `mexico-transplants.json` — one record per `(state_code, year, organ)`; counts + `donor_type_breakdown` + `rate_pmp`.
-- `world-transplants.json` — one record per `(country_iso3, year)`; counts + `*_pmp` rates + `source ∈ {GODT, IRODaT}`.
-- `mexico-states.topojson` — INEGI/Natural Earth state polygons simplified to ≤60 KB.
-- `meta.json` — provenance (per-source `url`, `snapshot_date`, `sha256`, `rows_ingested`), pipeline version, coverage ranges.
+- `mexico-transplants.json`: one record per `(state_code, year, organ)`; counts + `donor_type_breakdown` + `rate_pmp`.
+- `world-transplants.json`: one record per `(country_iso3, year)`; counts + `*_pmp` rates + `source ∈ {GODT, IRODaT}`.
+- `mexico-states.topojson`: INEGI/Natural Earth state polygons simplified to ≤60 KB.
+- `meta.json`: provenance (per-source `url`, `snapshot_date`, `sha256`, `rows_ingested`), pipeline version, coverage ranges.
 
 For field-level rules (when to use `null`, ISO patterns, organ enum), see the [schemas](./schemas/).
 
@@ -103,7 +103,7 @@ For field-level rules (when to use `null`, ISO patterns, organ enum), see the [s
 
 ## Privacy
 
-This pipeline ingests **aggregate** statistics only — counts by establishment, state, or country for a given year. It does **not** ingest, store, or emit patient-level records or any personally identifiable information. The silver layer asserts this with `accepted_values` tests; if a future contribution attempts to bring in row-level patient data, those tests fail.
+This pipeline ingests **aggregate** statistics only, counts by establishment, state, or country for a given year. It does **not** ingest, store, or emit patient-level records or any personally identifiable information. The silver layer asserts this with `accepted_values` tests; if a future contribution attempts to bring in row-level patient data, those tests fail.
 
 ## Security notes (public repository)
 
@@ -118,11 +118,11 @@ Source code is MIT (see [LICENSE](./LICENSE)). Upstream data retains its own ter
 
 | Source | License / terms |
 |---|---|
-| CENATRA via [datos.gob.mx](https://www.datos.gob.mx/) | "Libre Uso MX" — open re-use with attribution |
+| CENATRA via [datos.gob.mx](https://www.datos.gob.mx/) | "Libre Uso MX", open re-use with attribution |
 | World Bank `SP.POP.TOTL` | [CC BY 4.0](https://datacatalog.worldbank.org/public-licenses) |
 | INEGI / CONAPO population projections | Public statistics, attribution required |
-| GODT global report (PDF) | © GODT — fair-use snapshot only; do not redistribute the raw PDF |
-| IRODaT registry | © IRODaT — attribution required; aggregated rows only |
+| GODT global report (PDF) | © GODT, fair-use snapshot only; do not redistribute the raw PDF |
+| IRODaT registry | © IRODaT, attribution required; aggregated rows only |
 | ONT (Spain), Eurotransplant, Scandiatransplant | No explicit reuse terms published; treated as cited aggregates pending clarification |
 | Natural Earth boundaries | Public domain (https://www.naturalearthdata.com/about/terms-of-use/) |
 
