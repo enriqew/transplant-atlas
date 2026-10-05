@@ -4,7 +4,7 @@
 
 > Offline data pipeline that ingests Mexican (CENATRA) and global (GODT / IRODaT) organ donation and transplantation statistics, normalizes them, computes per-million-population rates, and emits compact JSON / TopoJSON artifacts intended for static-site consumption.
 
-The pipeline runs locally or on GitHub Actions free tier. It depends on no always-on infrastructure. The output artifacts (≤500 KB JSON, ≤60 KB TopoJSON) are committed to this repo and also published as workflow artifacts on every refresh.
+The pipeline runs locally (`make all`). The GitHub Actions `refresh` workflow is manual only: the Mexican open-data portal (datos.gob.mx / repodatos.atdt.gob.mx) answers 403 to GitHub-hosted runners, so CENATRA cannot be fetched from there. It depends on no always-on infrastructure. The output artifacts (≤500 KB JSON, ≤60 KB TopoJSON) are committed to this repo and also published as workflow artifacts on every refresh.
 
 A separate frontend (out of scope here) consumes those artifacts and renders an interactive map. See [the output contract](#output-contract).
 

@@ -8,16 +8,18 @@ name: refresh
 #     publishing this repo widely, run `gh dependabot` or pin to specific SHAs.
 #   - GITHUB_TOKEN is the only credential used; no upstream source needs auth.
 
+# Manual only. The monthly cron was removed on 2026-10-05: datos.gob.mx and
+# repodatos.atdt.gob.mx sit behind Akamai, which answers 403 to GitHub-hosted
+# runners (Azure IPs) whatever the request headers, so every scheduled run died on
+# the first CENATRA ingest. Refresh locally with `make all` (from a network the
+# portal accepts) and commit the artifacts, or dispatch this from a runner that
+# can reach the portal.
 on:
   workflow_dispatch:
     inputs:
       snapshot-date:
         description: "Override snapshot date (YYYY-MM-DD). Default: today UTC."
         required: false
-  schedule:
-    # Monthly on the 5th at 04:00 UTC — late enough that monthly upstream
-    # publications are usually out.
-    - cron: "0 4 5 * *"
 
 permissions:
   contents: write
