@@ -15,14 +15,18 @@ jobs:
       - name: Probe
         run: |
           set +e
-          curl -sS https://ipinfo.io/json; echo
-          for ua in "transplant-atlas/0.1 (+https://github.com/enriqew/transplant-atlas)" \
-                    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0 Safari/537.36"; do
-            for url in "https://www.datos.gob.mx/api/3/action/package_show?id=trasplantes_organos_tejidos" \
-                       "https://www.datos.gob.mx/" \
-                       "https://repodatos.atdt.gob.mx/api_update/cenatra/trasplantes_organos_tejidos/trasplantes_4toTrimestre2025.csv"; do
-              echo "== UA=[$ua] $url"
-              curl -sS -D - -o body.txt -A "$ua" --max-time 30 "$url" | head -20
-              head -c 300 body.txt; echo; echo
-            done
+          UA="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0 Safari/537.36"
+          curl -sS -A "$UA" "https://www.datos.gob.mx/api/3/action/package_show?id=trasplantes_organos_tejidos" -o pkg.json
+          python3 -c "import json;[print(r['url']) for r in json.load(open('pkg.json'))['result']['resources']]" | tee urls.txt
+          U=$(head -1 urls.txt)
+          echo "== first resource: $U"
+          for hdrs in "" "-H Accept:text/csv,*/*;q=0.8 -H Accept-Language:es-MX,es;q=0.9 -H Referer:https://www.datos.gob.mx/"; do
+            echo "-- hdrs=[$hdrs] browserUA"; curl -sS -D - -o b.txt -A "$UA" $hdrs --max-time 30 "$U" | head -6; head -c 200 b.txt; echo
+          done
+          echo "-- python-requests default UA"; curl -sS -o /dev/null -w "%{http_code}\n" -A "python-requests/2.32.3" "$U"
+          echo "-- curl default UA"; curl -sS -o /dev/null -w "%{http_code}\n" "$U"
+          echo "-- other hosts used by the pipeline, our UA vs browser UA"
+          OUR="transplant-atlas/0.1 (+https://github.com/enriqew/transplant-atlas)"
+          for h in https://api.worldbank.org/v2/country https://statistics.eurotransplant.org/ https://www.irodat.org/ https://www.naturalearthdata.com/ https://www.ont.es/ https://www.scandiatransplant.org/ https://www.transplant-observatory.org/ https://raw.githubusercontent.com/; do
+            echo "$h our=$(curl -sS -o /dev/null -w '%{http_code}' -A "$OUR" --max-time 30 "$h") browser=$(curl -sS -o /dev/null -w '%{http_code}' -A "$UA" --max-time 30 "$h")"
           done
